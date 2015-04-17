@@ -7,8 +7,8 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import com.luxoftmarket.domain.User;
 
-@Component//аннотация @Component = Спринг создаст бин данного класса, необходимо добавить зависимость на этот валидатор в наш контроллер
-public class GoodValidator implements Validator {//имплементид интерфейс валидатор, который находится в спринге
+@Component//Р°РЅРЅРѕС‚Р°С†РёСЏ @Component = РЎРїСЂРёРЅРі СЃРѕР·РґР°СЃС‚ Р±РёРЅ РґР°РЅРЅРѕРіРѕ РєР»Р°СЃСЃР°, РЅРµРѕР±С…РѕРґРёРјРѕ РґРѕР±Р°РІРёС‚СЊ Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ РЅР° СЌС‚РѕС‚ РІР°Р»РёРґР°С‚РѕСЂ РІ РЅР°С€ РєРѕРЅС‚СЂРѕР»Р»РµСЂ
+public class GoodValidator implements Validator {//РёРјРїР»РµРјРµРЅС‚РёРґ РёРЅС‚РµСЂС„РµР№СЃ РІР°Р»РёРґР°С‚РѕСЂ, РєРѕС‚РѕСЂС‹Р№ РЅР°С…РѕРґРёС‚СЃСЏ РІ СЃРїСЂРёРЅРіРµ
 
 
     @Override
@@ -19,8 +19,9 @@ public class GoodValidator implements Validator {//имплементид интерфейс валидат
 
     @Override
     public void validate(Object o, Errors errors) {
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.name", "Name is required."); // проверка того что данные значения не пустые
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "genre", "required.genre", "Genre is required.");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.good_name", "РћР±СЏР·Р°С‚РµР»СЊРЅРѕ РІРІРµРґРёС‚Рµ РёРјСЏ."); // РїСЂРѕРІРµСЂРєР° С‚РѕРіРѕ С‡С‚Рѕ РґР°РЅРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РЅРµ РїСѓСЃС‚С‹Рµ
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "required.good_price", "РћР±СЏР·Р°С‚РµР»СЊРЅРѕ РІРІРµРґРёС‚Рµ С†РµРЅСѓ.");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "amount", "required.good_amount", "РћР±СЏР·Р°С‚РµР»СЊРЅРѕ РІРІРµРґРёС‚Рµ РєРѕР»-РІРѕ РЅР° СЃРєР»Р°РґРµ.");
 
 
         }

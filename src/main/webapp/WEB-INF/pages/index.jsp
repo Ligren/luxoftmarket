@@ -1,6 +1,5 @@
 <%@ include file="/WEB-INF/tags/includes.jsp"%>
 
-
 <t:template>
   <!--проверка на условие, если books is !empty тогда заходим в условие-->
   <c:if test = "${!empty goods}">
