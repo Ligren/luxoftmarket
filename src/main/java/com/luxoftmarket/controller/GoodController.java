@@ -55,7 +55,7 @@ public class GoodController {
     @PreAuthorize("isAuthenticated()")
     public String addGood(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
         model.addAttribute("good", new Good());
-        return "addGood"; //возвращаем страницу addBook
+       return "addGood"; //возвращаем страницу addBook
     }
 
     @RequestMapping(value = "addGood", method = RequestMethod.POST) // метод c URL addBook c requestMethod POST ---- нажали на кнопку
@@ -66,7 +66,6 @@ public class GoodController {
             if (bindingResult.hasErrors()) { //перед сохранением книги в базу, проверяем, с помощью созданного валидатора, нашу модель на предмет ошибок ? и все ошибки записываются в Binding Result
         return "addGood"; // если есть ошибки, возвращаем ту-же самую вьюху
     }
-//        System.out.println("Жанр: " + book.getGenre() + ", книга " + book.getName());
         this.goodRepository.addGood(good);
             return "redirect:/"; //переходим на страницу главную /
         }
