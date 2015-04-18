@@ -12,6 +12,7 @@ http://www.site-do.ru/db/sql1.php sql statement info
 validation and loging
 http://www.journaldev.com/2668/spring-mvc-form-validation-example-using-annotation-and-custom-validator-implementation
 http://www.h2database.com/html/cheatSheet.html h2
+http://trails.codehaus.org/DatabaseConfigurations info about db
 
 */
 package com.luxoftmarket.controller;
