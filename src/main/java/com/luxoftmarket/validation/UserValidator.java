@@ -1,40 +1,30 @@
 package com.luxoftmarket.validation;
 
+import com.luxoftmarket.domain.Good;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import com.luxoftmarket.domain.User;
-@Component //аннотация @Component = Спринг создаст бин данного класса, необходимо добавить зависимость на этот валидатор в наш контроллер
-public class UserValidator { //имплементид интерфейс валидатор, который находится в спринге
+
+@Component//аннотация @Component = Спринг создаст бин данного класса, необходимо добавить зависимость на этот валидатор в наш контроллер
+public class UserValidator implements Validator {//имплементид интерфейс валидатор, который находится в спринге
 
 
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return Good.class.isAssignableFrom(aClass);
+    }
 
-    /**
-     * необходимо добавить зависимость на наш контроллер BookController
-     * http://habrahabr.ru/post/68318/
-     * необходимо добавить сканирование нашего нового пакета validation
-     * <context:component-scan base-package="com.bookmanager.repository, com.bookmanager.validation"/>
-     * т.е. спринг автоматически сканирует бины из пакета:
-     * <context:component-scan base-package="com.bookmanager.repository, com.bookmanager.validation"/>
-     * которые помечены аннотацией
-     * @Component
-     */
+    @Override
+    public void validate(Object o, Errors errors) {
+//        Good good = (Good) o;
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nick", "required.good_nick", "Обязательно введите ник."); // проверка того что данные значения не пустые
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "required.good_price", "Обязательно введите цену.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "required.good_amount", "Обязательно введите кол-во на складе.");
 
-/*
-        @Override
-        public boolean supports(Class<?> aClass) {
-            return User.class.isAssignableFrom(aClass);
-        }
-        */
-    /*
+//        try { new Integer("price"); }catch (NumberFormatException e) { errors.rejectValue("price", "not_true_number", "Введите Именно число!"); }
+//        try { new Integer("amount"); }catch (NumberFormatException e) { errors.rejectValue("amount", "not_true_number", "Введите Именно число!"); }
 
-        @Override
-        public void validate(Object o, Errors errors) {
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.name", "Name is required."); // проверка того что данные значения не пустые
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "genre", "required.genre", "Genre is required.");
+    }
 
-
-        }
-*/
 }

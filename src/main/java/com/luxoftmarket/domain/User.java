@@ -7,18 +7,22 @@ import javax.persistence.*;
 public class User {
 
         @Id
-        @Column(name  = "id")
+        @Column(name  = "id_user")
         @GeneratedValue
         private Integer id;
 
-        @Column(name = "nick")
+
+        @Column(name = "user_name")
         private String nick;
 
-        @Column(name = "password")
+        @Column(name = "user_password")
         private String password;
 
-        @Column(name = "dateBirthday")
-        private String dateBirthday;
+        @Column(name = "user_email")
+        private String email;
+
+//        @Column(name = "dateBirthday")
+//        private String dateBirthday;
 
         public Integer getId() { return id; }
 
@@ -32,8 +36,12 @@ public class User {
 
         public void setPassword(String password) { this.password = password; }
 
-        public String getDatebirthday() { return dateBirthday; }
+        public String getEmail() { return email; }
 
-        public void setDatebirthday(String datebirthday) { this.dateBirthday = dateBirthday; }
+        public void setEmail(String email) { this.email = email; }
+
+        //        public String getDatebirthday() { return dateBirthday; }
+
+//        public void setDatebirthday(String datebirthday) { this.dateBirthday = dateBirthday; }
 
 }

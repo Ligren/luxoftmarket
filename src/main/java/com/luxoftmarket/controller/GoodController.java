@@ -8,6 +8,9 @@ https://www.youtube.com/watch?v=4DDuIjJBj-o start in web on Russian
 http://stackoverflow.com/questions/2237537/which-maven-dependencies-to-include-for-spring-3-0 all Spring dependency
 https://www.youtube.com/watch?v=9GdtWiovvIQ хорошо объяснено про инкапсуляцию
 http://www.site-do.ru/db/sql1.php sql statement info
+validation and loging
+http://www.journaldev.com/2668/spring-mvc-form-validation-example-using-annotation-and-custom-validator-implementation
+http://www.h2database.com/html/cheatSheet.html h2
 
 */
 package com.luxoftmarket.controller;

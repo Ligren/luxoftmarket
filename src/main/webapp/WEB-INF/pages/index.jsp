@@ -37,6 +37,12 @@
     <a href="addGood">Add goods</a>
   </sec:authorize>
 
+  <sec:authorize access="isAnonymous()">
+    <!-- ссылка на addBook с надписью Add book -->
+    <!--@RequestMapping(value = "addBook", method = RequestMethod.GET) -->
+    <a href="addUser">Регистрация</a>
+  </sec:authorize>
+
 
 </t:template>
 

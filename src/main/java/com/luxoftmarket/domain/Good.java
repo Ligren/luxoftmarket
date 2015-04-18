@@ -11,6 +11,7 @@ public class Good {
     @GeneratedValue
     private Integer id;
 
+
     @Column(name = "good_name")
     private String name;
 
