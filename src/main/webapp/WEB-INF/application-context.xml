@@ -12,11 +12,12 @@
        <!--xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">-->
 
        <!-- Для использования place holder (вида ${jdbc.databaseurl} необходимо включить следующий context:property-placeholder-->
-       <context:property-placeholder location="classpath:jdbcH2.properties" system-properties-mode="ENVIRONMENT"/>
+       <!--<context:property-placeholder location="classpath:jdbc.properties" system-properties-mode="ENVIRONMENT"/>-->
+       <context:property-placeholder location="classpath:jdbc.properties" />
 
        <!-- Необходимо добавить component-scan для всех бинов, которые создаются аннотациями (например GoodRepository) -->
        <!-- теперь бин репозитория будет доступен в контексте приложения -->
-       <context:component-scan base-package="com.luxoftmarket.repository, com.luxoftmarket.validation"/>
+       <context:component-scan base-package="com.luxoftmarket"/>
 
 
 
