@@ -27,10 +27,12 @@
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
+    <!-- Для использования сокращенных имен в Controller, т.е. страницы, которые находятся в "/WEB-INF/pages/" с суффиксом ".jsp" могут прописываться в контроллере без префикса и без суффикса -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
 
     <security:global-method-security jsr250-annotations="enabled" pre-post-annotations="enabled"
                                      secured-annotations="enabled"/>

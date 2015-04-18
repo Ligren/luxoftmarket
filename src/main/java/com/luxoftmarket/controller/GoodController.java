@@ -1,12 +1,12 @@
 /*
-http://devcolibri.com/2890 подключение js и css
+http://devcolibri.com/2890 РїРѕРґРєР»СЋС‡РµРЅРёРµ js Рё css
 https://www.youtube.com/watch?v=rdYQOqxq9F0 CRUD Spring MVC, Hibarnate, Eclipse
 https://www.youtube.com/watch?v=vR6jYVEMJS0 Spring security
 https://www.youtube.com/watch?v=dO883S85d_k IDEA GitHub key
 https://spring.io/blog/2012/04/06/migrating-to-spring-3-1-and-hibernate-4-1
 https://www.youtube.com/watch?v=4DDuIjJBj-o start in web on Russian
 http://stackoverflow.com/questions/2237537/which-maven-dependencies-to-include-for-spring-3-0 all Spring dependency
-https://www.youtube.com/watch?v=9GdtWiovvIQ хорошо объяснено про инкапсуляцию
+https://www.youtube.com/watch?v=9GdtWiovvIQ С…РѕСЂРѕС€Рѕ РѕР±СЉСЏСЃРЅРµРЅРѕ РїСЂРѕ РёРЅРєР°РїСЃСѓР»СЏС†РёСЋ
 http://www.site-do.ru/db/sql1.php sql statement info
 
 */
@@ -31,49 +31,50 @@ import java.util.List;
 @Controller
 public class GoodController {
 
-    private GoodValidator goodValidator; //создаем зависимость на валидатор
+    private GoodValidator goodValidator; //СЃРѕР·РґР°РµРј Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ РЅР° РІР°Р»РёРґР°С‚РѕСЂ
     private GoodRepository goodRepository;
 
     @Autowired
-    public GoodController(GoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
+    public GoodController(GoodRepository goodRepository, GoodValidator goodValidator){ // РІР°Р»РёРґР°С‚РѕСЂ РЅРµРѕР±С…РѕРґРёРјРѕ РїСЂРѕРїРёСЃР°С‚СЊ РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ
 //            this.userRepository = userRepository;
         this.goodRepository = goodRepository;
         this.goodValidator = goodValidator;
     }
 
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)//при заходе на стартовую страницу
+    @RequestMapping(value = "/", method = RequestMethod.GET)//РїСЂРё Р·Р°С…РѕРґРµ РЅР° СЃС‚Р°СЂС‚РѕРІСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ
     public String getBooks(Model model) {
 //        System.out.println("-----we are on controller in the index page");
           List<Good> goods = this.goodRepository.listAll();
+        model.addAttribute("goods", goods);
 //        model.addAttribute("message", "new my massage");
-        return "index"; //возвращаем страницу index
+        return "index"; //РІРѕР·РІСЂР°С‰Р°РµРј СЃС‚СЂР°РЅРёС†Сѓ index
     }
 
-    @RequestMapping(value = "addGood", method = RequestMethod.GET)// при вызове метода c URL addBook c requestMethod GET --- нажали на ссылку
+    @RequestMapping(value = "addGood", method = RequestMethod.GET)// РїСЂРё РІС‹Р·РѕРІРµ РјРµС‚РѕРґР° c URL addBook c requestMethod GET --- РЅР°Р¶Р°Р»Рё РЅР° СЃСЃС‹Р»РєСѓ
     @PreAuthorize("isAuthenticated()")
-    public String addGood(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
-        model.addAttribute("Good", new Good());
-        return "addGood"; //возвращаем страницу addBook
+    public String addGood(Model model) {                        //РІРѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂР°РЅРёС†Сѓ addBook.jsp РІ РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµС‚ С„РѕСЂРјР° РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕР№ РєРЅРёРіРё СЃ РєРЅРѕРїРєРѕР№ add book
+        model.addAttribute("good", new Good());
+        return "addGood"; //РІРѕР·РІСЂР°С‰Р°РµРј СЃС‚СЂР°РЅРёС†Сѓ addBook
     }
 
-    @RequestMapping(value = "addGood", method = RequestMethod.POST) // метод c URL addBook c requestMethod POST ---- нажали на кнопку
+    @RequestMapping(value = "addGood", method = RequestMethod.POST) // РјРµС‚РѕРґ c URL addBook c requestMethod POST ---- РЅР°Р¶Р°Р»Рё РЅР° РєРЅРѕРїРєСѓ
 //    @PreAuthorize("isAuthenticated()")
     @PreAuthorize("hasRole('admin')")
-    public String addGood(@ModelAttribute("good") Good good, BindingResult bindingResult) { //будет добавлять новую книгу в базу данных, добавили Binding Result который будет хранить в себе ошибки
-            this.goodValidator.validate(good, bindingResult);                                   //валидации
-            if (bindingResult.hasErrors()) { //перед сохранением книги в базу, проверяем, с помощью созданного валидатора, нашу модель на предмет ошибок ? и все ошибки записываются в Binding Result
-        return "addGood"; // если есть ошибки, возвращаем ту-же самую вьюху
+    public String addGood(@ModelAttribute("good") Good good, BindingResult bindingResult) { //Р±СѓРґРµС‚ РґРѕР±Р°РІР»СЏС‚СЊ РЅРѕРІСѓСЋ РєРЅРёРіСѓ РІ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…, РґРѕР±Р°РІРёР»Рё Binding Result РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ С…СЂР°РЅРёС‚СЊ РІ СЃРµР±Рµ РѕС€РёР±РєРё
+            this.goodValidator.validate(good, bindingResult);                                   //РІР°Р»РёРґР°С†РёРё
+            if (bindingResult.hasErrors()) { //РїРµСЂРµРґ СЃРѕС…СЂР°РЅРµРЅРёРµРј РєРЅРёРіРё РІ Р±Р°Р·Сѓ, РїСЂРѕРІРµСЂСЏРµРј, СЃ РїРѕРјРѕС‰СЊСЋ СЃРѕР·РґР°РЅРЅРѕРіРѕ РІР°Р»РёРґР°С‚РѕСЂР°, РЅР°С€Сѓ РјРѕРґРµР»СЊ РЅР° РїСЂРµРґРјРµС‚ РѕС€РёР±РѕРє ? Рё РІСЃРµ РѕС€РёР±РєРё Р·Р°РїРёСЃС‹РІР°СЋС‚СЃСЏ РІ Binding Result
+        return "addGood"; // РµСЃР»Рё РµСЃС‚СЊ РѕС€РёР±РєРё, РІРѕР·РІСЂР°С‰Р°РµРј С‚Сѓ-Р¶Рµ СЃР°РјСѓСЋ РІСЊСЋС…Сѓ
     }
-//        System.out.println("Жанр: " + book.getGenre() + ", книга " + book.getName());
+//        System.out.println("Р–Р°РЅСЂ: " + book.getGenre() + ", РєРЅРёРіР° " + book.getName());
         this.goodRepository.addGood(good);
-            return "redirect:/"; //переходим на страницу главную /
+            return "redirect:/"; //РїРµСЂРµС…РѕРґРёРј РЅР° СЃС‚СЂР°РЅРёС†Сѓ РіР»Р°РІРЅСѓСЋ /
         }
 
-    @RequestMapping(value = "deleteGood/{id}", method = RequestMethod.GET) // --- нажали на ссылку
+    @RequestMapping(value = "deleteGood/{id}", method = RequestMethod.GET) // --- РЅР°Р¶Р°Р»Рё РЅР° СЃСЃС‹Р»РєСѓ
     @PreAuthorize("hasRole('admin')")
     public String deleteGood(@PathVariable Integer id) {
-//            this.bookRepository.removeBook(id);
+            this.goodRepository.removeGood(id);
         return "redirect:/";
     }
 

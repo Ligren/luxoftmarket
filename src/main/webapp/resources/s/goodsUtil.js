@@ -1,8 +1,8 @@
 function _GoodsUtil() {
 
-    this.deleteGoods = function(id) {
-        if (confirm("Βϋ σβεπενϋ ?")) {
-            window.location = "/deleteGoods/" + id;
+    this.deleteGood = function(id) {
+        if (confirm("Π’Ρ‹ ΡƒΠ²ΠµΡ€ΠµΠ½Ρ‹ ?")) {
+            window.location = "/deleteGood/" + id;
         }
     }
 }

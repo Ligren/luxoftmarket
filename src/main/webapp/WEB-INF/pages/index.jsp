@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/tags/includes.jsp"%>
 
 <t:template>
@@ -7,8 +8,9 @@
     <table class="good-list-table">
       <!--столбци-->
       <tr>
-        <th>Name</th>
-        <th>Genre</th>
+        <th>Название</th>
+        <th>Цена</th>
+        <th>Остаток на складе</th>
         <sec:authorize access="hasRole('admin')">
           <th>&nbsp;</th>
         </sec:authorize>
@@ -19,10 +21,11 @@
       <c:forEach items="${goods}" var="good">
         <!-- выводим строку -->
         <tr>
-          <td>${goods.name}</td>
-          <td>${goods.genre}</td>
+          <td>${good.name}</td>
+          <td>${good.price}</td>
+          <td>${good.amount}</td>
           <sec:authorize access="hasRole('admin')">
-            <td><a href="javascript:BookUtil.deleteBook(${goods.id})">Delete</a></td>
+            <td><a href="javascript:GoodsUtil.deleteGood(${good.id})">Delete</a></td>
           </sec:authorize>
         </tr>
       </c:forEach>

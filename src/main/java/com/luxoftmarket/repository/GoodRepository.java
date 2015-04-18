@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Repository
-@Transactional
-public class GoodRepository {
+@Transactional // включает возможность транзакции в этом классе (все методы в это классе будут выполнятся как транзакция)
+public class GoodRepository { //для этого нам нужно добавить необходимые зависимости на Спринговые библиотеки для работы с транзакциями
 
 
 
+//sessionFactory класс находится в Hibernate, для его использования необходимо добавить в poom.xml зависимости на Hibernate
         @Autowired
         private SessionFactory sessionFactory;
 
@@ -27,7 +28,7 @@ public class GoodRepository {
 
         public void removeGood(Integer id) {
             Good contact = (Good) this.sessionFactory.getCurrentSession().load(
-                    Good.class, id);
+            Good.class, id);
             if (null != contact) {
                 this.sessionFactory.getCurrentSession().delete(contact);
             }
