@@ -5,7 +5,12 @@
        xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- находится конфиг дистатчера сервлета нашего приложения -->
     <context:component-scan base-package="com.luxoftmarket.controller"/>
@@ -30,6 +35,11 @@
 
     <security:http use-expressions="true">
 
+        <!--<security:session-management invalid-session-url="/Login" >-->
+        <security:session-management invalid-session-url="/" >
+            <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"  />
+        </security:session-management>
+
         <!--все это доступно всем-->
         <!--<security:intercept-url pattern="/**" access="permitAll"/>-->
 
@@ -43,10 +53,14 @@
 
         <security:logout logout-success-url="/" delete-cookies="JSESSIONID"/>
         <security:remember-me/>
-        <security:session-management invalid-session-url="/">
-            <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
-        </security:session-management>
+
     </security:http>
+
+    <!--<security:session-management invalid-session-url="/" />-->
+    <!--<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>-->
+    <!--</security:session-management>-->
+
+
 
     <!-- нужен для шифрования пароля -->
     <bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>

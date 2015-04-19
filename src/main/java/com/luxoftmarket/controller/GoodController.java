@@ -13,7 +13,11 @@ validation and loging
 http://www.journaldev.com/2668/spring-mvc-form-validation-example-using-annotation-and-custom-validator-implementation
 http://www.h2database.com/html/cheatSheet.html h2
 http://trails.codehaus.org/DatabaseConfigurations info about db
-
+http://www.developermemo.com/1073224/ databases in memory
+http://habrahabr.ru/post/203318/ spring security
+https://www.jetbrains.com/idea/features/unit_testing_and_coverage.html junit test with idea
+http://habrahabr.ru/post/111102/ spring security
+http://www.mkyong.com/spring-mvc/spring-mvc-log4j-integration-example/ log4j
 */
 package com.luxoftmarket.controller;
 
