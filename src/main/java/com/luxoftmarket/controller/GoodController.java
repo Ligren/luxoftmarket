@@ -18,6 +18,9 @@ http://habrahabr.ru/post/203318/ spring security
 https://www.jetbrains.com/idea/features/unit_testing_and_coverage.html junit test with idea
 http://habrahabr.ru/post/111102/ spring security
 http://www.mkyong.com/spring-mvc/spring-mvc-log4j-integration-example/ log4j
+https://vimeo.com/58008858 unit test (JUnit, Mockito)
+http://mrbool.com/how-to-create-a-login-application-using-spring-mvc-in-java/27113 login application
+http://habrahabr.ru/post/243155/ Unit test Mockito
 */
 package com.luxoftmarket.controller;
 
@@ -38,28 +41,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-public class GoodController {
+public class GoodController implements IGoodController {
 
     private GoodValidator goodValidator; //создаем зависимость на валидатор
     private GoodRepository goodRepository;
 
     @Autowired
     public GoodController(GoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
-//            this.userRepository = userRepository;
         this.goodRepository = goodRepository;
         this.goodValidator = goodValidator;
     }
 
 
+    @Override
     @RequestMapping(value = "/", method = RequestMethod.GET)//при заходе на стартовую страницу
-    public String getBooks(Model model) {
-//        System.out.println("-----we are on controller in the index page");
-          List<Good> goods = this.goodRepository.listAll();
+    public String getGoods(Model model) {
+        List<Good> goods = this.goodRepository.listAll();
+//        System.out.println(this.goodRepository.listAll().getClass());
         model.addAttribute("goods", goods);
 //        model.addAttribute("message", "new my massage");
         return "index"; //возвращаем страницу index
     }
 
+    @Override
     @RequestMapping(value = "addGood", method = RequestMethod.GET)// при вызове метода c URL addBook c requestMethod GET --- нажали на ссылку
     @PreAuthorize("isAuthenticated()")
     public String addGood(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
@@ -67,6 +71,7 @@ public class GoodController {
        return "addGood"; //возвращаем страницу addBook
     }
 
+    @Override
     @RequestMapping(value = "addGood", method = RequestMethod.POST) // метод c URL addBook c requestMethod POST ---- нажали на кнопку
 //    @PreAuthorize("isAuthenticated()")
     @PreAuthorize("hasRole('admin')")
@@ -79,6 +84,7 @@ public class GoodController {
             return "redirect:/"; //переходим на страницу главную /
         }
 
+    @Override
     @RequestMapping(value = "deleteGood/{id}", method = RequestMethod.GET) // --- нажали на ссылку
     @PreAuthorize("hasRole('admin')")
     public String deleteGood(@PathVariable Integer id) {
