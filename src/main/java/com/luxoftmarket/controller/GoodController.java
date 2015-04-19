@@ -57,7 +57,6 @@ public class GoodController implements IGoodController {
     @RequestMapping(value = "/", method = RequestMethod.GET)//при заходе на стартовую страницу
     public String getGoods(Model model) {
         List<Good> goods = this.goodRepository.listAll();
-//        System.out.println(this.goodRepository.listAll().getClass());
         model.addAttribute("goods", goods);
 //        model.addAttribute("message", "new my massage");
         return "index"; //возвращаем страницу index
