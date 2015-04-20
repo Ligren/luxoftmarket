@@ -98,11 +98,10 @@ public class GoodControllerTest {
     @Test
     public void testAddGoodPostNotHasError() throws Exception {
 
-        testReturnValue = "addGood";
+        testReturnValue = "redirect:/";
 
         mockGoodController.addGood(mockGood, mockBindingResult);
 
-        testReturnValue = "redirect:/";
         if (mockBindingResult.hasErrors()) {
             mockGoodRepository.addGood(mockGood);
             assertEquals(testReturnValue, mockGoodController.addGood(mockGood, mockBindingResult));
