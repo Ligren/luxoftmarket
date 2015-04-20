@@ -26,6 +26,7 @@ package com.luxoftmarket.controller;
 
 import com.luxoftmarket.domain.Good;
 import com.luxoftmarket.repository.GoodRepository;
+import com.luxoftmarket.repository.IGoodRepository;
 import com.luxoftmarket.validation.GoodValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,10 +45,10 @@ import java.util.List;
 public class GoodController implements IGoodController {
 
     private GoodValidator goodValidator; //создаем зависимость на валидатор
-    private GoodRepository goodRepository;
+    private IGoodRepository goodRepository;
 
     @Autowired
-    public GoodController(GoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
+    public GoodController(IGoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
         this.goodRepository = goodRepository;
         this.goodValidator = goodValidator;
     }

@@ -1,6 +1,9 @@
 package com.luxoftmarket.controller;
 
 import com.luxoftmarket.domain.Good;
+import com.luxoftmarket.repository.IGoodRepository;
+import com.luxoftmarket.validation.GoodValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

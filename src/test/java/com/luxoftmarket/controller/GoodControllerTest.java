@@ -1,28 +1,24 @@
 package com.luxoftmarket.controller;
 
 import com.luxoftmarket.domain.Good;
-import com.luxoftmarket.repository.GoodRepository;
+import com.luxoftmarket.repository.IGoodRepository;
 import com.luxoftmarket.validation.GoodValidator;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 public class GoodControllerTest {
 
     GoodValidator mockGoodValidator;
     IGoodController mockGoodController;
-    GoodRepository mockGoodRepository;
+    IGoodRepository mockGoodRepository;
     Model mockModel;
     String testReturnValue;
     Good mockGood;
@@ -31,7 +27,7 @@ public class GoodControllerTest {
     @Before
     public void setUpMethod() throws Exception {
         mockModel = mock(Model.class);
-        mockGoodRepository = mock(GoodRepository.class);
+        mockGoodRepository = mock(IGoodRepository.class);
         mockGoodValidator = mock(GoodValidator.class);
 //        mockGoodController = mock(GoodController.class);
         mockGoodController = new GoodController(mockGoodRepository, mockGoodValidator);
@@ -49,16 +45,24 @@ public class GoodControllerTest {
             model.addAttribute("goods", goods);
             return "index";
          */
-        testReturnValue = "index";
-        List<Good> testCollection = new ArrayList<Good>();
-        testCollection.add(mockGood);
-        testCollection.add(mockGood);
+//        testReturnValue = "index";
 
-        when(mockGoodRepository.listAll()).thenReturn(testCollection);
+        when(mockGoodRepository.listAll()).thenReturn(new ArrayList<Good>(5));
 
-        mockGoodRepository.listAll();
+        String url = new GoodController(mockGoodRepository, mockGoodValidator).getGoods(mockModel);
 
-        assertEquals(testReturnValue, mockGoodController.getGoods(mockModel));
+        mockModel.addAttribute("goods", mockGood);
+
+        verify(mockGoodRepository).listAll(); //должны что-либо получить от метода
+        verify(mockModel).addAttribute("goods", mockGood); //должны установить значение методу
+
+        assertEquals("index", url);
+/*
+when(mockGoodRepository.listAll()).thenReturn();
+потом controller (не МОК а реальный контроллер).getGoods(mockModel)
+а потом verify(mockGoodRepository).listAll();
+        verify(mockModel).addAttribute("goods", mockGood);
+ */
     }
 
     @Test
@@ -69,10 +73,13 @@ public class GoodControllerTest {
             return "addGood";
             }
          */
-        testReturnValue = "addGood";
-        mockModel.addAttribute("good", mockGood);
 
-        assertEquals(testReturnValue, mockGoodController.addGood(mockModel));
+        mockModel.addAttribute("goods", mockModel);
+        verify(mockModel).addAttribute("goods", mockModel);
+
+        String url = new GoodController(mockGoodRepository, mockGoodValidator).addGood(mockModel);
+
+        assertEquals("addGood", url);
     }
 
     @Test
@@ -87,25 +94,21 @@ public class GoodControllerTest {
             return "redirect:/";
         }
          */
-        testReturnValue = "addGood";
 
-        mockGoodController.addGood(mockGood, mockBindingResult);
-        if (mockBindingResult.hasErrors()) {
-            assertEquals(testReturnValue, mockGoodController.addGood(mockGood, mockBindingResult));
-        }
-        }
+        mockGoodValidator.validate(mockGood, mockBindingResult);
+        verify(mockGoodValidator).validate(mockGood, mockBindingResult);
 
-    @Test
-    public void testAddGoodPostNotHasError() throws Exception {
+        mockBindingResult.hasErrors();
+        verify(mockBindingResult).hasErrors();
 
-        testReturnValue = "redirect:/";
+        when(mockBindingResult.hasErrors()).thenReturn(true).thenReturn(false);
 
-        mockGoodController.addGood(mockGood, mockBindingResult);
 
-        if (mockBindingResult.hasErrors()) {
-            mockGoodRepository.addGood(mockGood);
-            assertEquals(testReturnValue, mockGoodController.addGood(mockGood, mockBindingResult));
-        }
+        String urlHasError = new GoodController(mockGoodRepository, mockGoodValidator).addGood(new Good(), mockBindingResult);
+        assertEquals("addGood", urlHasError);
+
+        String urlNoError = new GoodController(mockGoodRepository, mockGoodValidator).addGood(new Good(), mockBindingResult);
+        assertEquals("redirect:/", urlNoError);
     }
 
     @Test
@@ -117,9 +120,16 @@ public class GoodControllerTest {
             return "redirect:/";
     }
          */
-        testReturnValue = "redirect:/";
-        int testId = new Random().nextInt();
-        mockGoodRepository.removeGood(testId);
-        assertEquals(testReturnValue, mockGoodController.deleteGood(testId));
+        int id = 5;
+
+
+        String url = new GoodController(mockGoodRepository, mockGoodValidator).deleteGood(id);
+
+//        mockGoodRepository.removeGood(id);
+        verify(mockGoodRepository).removeGood(id);
+//       assertEquals(5, mockGoodRepository.);
+        verifyZeroInteractions(mockGoodRepository);
+
+        assertEquals("redirect:/", url);
     }
 }
