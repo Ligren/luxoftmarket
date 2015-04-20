@@ -76,7 +76,7 @@ public class GoodControllerTest {
     }
 
     @Test
-    public void testAddGoodPost() throws Exception {
+    public void testAddGoodPostHasError() throws Exception {
         /*
             public String addGood(@ModelAttribute("good") Good good, BindingResult bindingResult) {
             this.goodValidator.validate(good, bindingResult);
@@ -90,8 +90,18 @@ public class GoodControllerTest {
         testReturnValue = "addGood";
 
         mockGoodController.addGood(mockGood, mockBindingResult);
-        if (mockBindingResult.hasErrors())
+        if (mockBindingResult.hasErrors()) {
             assertEquals(testReturnValue, mockGoodController.addGood(mockGood, mockBindingResult));
+        }
+        }
+
+    @Test
+    public void testAddGoodPostNotHasError() throws Exception {
+
+        testReturnValue = "addGood";
+
+        mockGoodController.addGood(mockGood, mockBindingResult);
+
         testReturnValue = "redirect:/";
         if (mockBindingResult.hasErrors()) {
             mockGoodRepository.addGood(mockGood);
@@ -109,8 +119,7 @@ public class GoodControllerTest {
     }
          */
         testReturnValue = "redirect:/";
-        Random rand = new Random();
-        int testId = rand.nextInt();
+        int testId = new Random().nextInt();
         mockGoodRepository.removeGood(testId);
         assertEquals(testReturnValue, mockGoodController.deleteGood(testId));
     }
