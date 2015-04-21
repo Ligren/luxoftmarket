@@ -9,7 +9,7 @@
     <link href="<c:url value="/resources/c/main.css" />" rel="stylesheet">
     <script src="<c:url value="/resources/s/goodsUtil.js" />"></script>
 
-    <title>Super goods !</title>
+    <title>Luxoft forever !</title>
 
     <!-- класс "login-link-container" должен присутствовать в main.css -->
     <div class="login-link-container">

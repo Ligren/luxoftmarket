@@ -4,6 +4,7 @@
 <t:template>
   <form:form method="post" action="addUser" commandName="user"> <!-- addBook адрес, который в контроллере замапен -->
 
+
     <table>
       <tr>
         <td><form:label path="nick">
@@ -17,7 +18,7 @@
         <td><form:label path="password">
           Ваш пароль (мин 6 символов)
         </form:label></td>
-        <td><form:input type="password" size="25" path="password" accept-charset="UTF-8" /></td> <!-- form:input type="password" path="genre" /></td> -->
+        <td><form:input type="password" size="25" path="password" accept-charset="UTF-8" /></td>
         <td><form:errors cssClass="error" path="password"></form:errors></td>
       </tr>
 

@@ -52,13 +52,15 @@ public class GoodController {// implements IGoodController {
         this.goodValidator = goodValidator;
     }
 
-
-    //    @Override
     @RequestMapping(value = "/", method = RequestMethod.GET)//при заходе на стартовую страницу
-    public String getGoods(Model model) {
+    public String index(Model model) {
+        return "index";
+    }
+
+    @RequestMapping(value = "allGoods", method = RequestMethod.GET)//при заходе на стартовую страницу
+    public String allGoods(Model model) {
         List<Good> goods = this.goodRepository.listAll();
         model.addAttribute("goods", goods);
-//        model.addAttribute("message", "new my massage");
         return "index"; //возвращаем страницу index
     }
 
@@ -68,6 +70,13 @@ public class GoodController {// implements IGoodController {
     public String addGood(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
         model.addAttribute("good", new Good());
         return "addGood"; //возвращаем страницу addBook
+    }
+
+    @RequestMapping(value = "admin", method = RequestMethod.GET)// при вызове метода c URL addBook c requestMethod GET --- нажали на ссылку
+    @PreAuthorize("hasRole('admin')")
+    public String admin(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
+//        model.addAttribute("good", new Good());
+        return "admin";
     }
 
     //    @Override

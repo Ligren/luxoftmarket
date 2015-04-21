@@ -1,5 +1,5 @@
 package com.luxoftmarket.repository;
-
+//DAO component
 import com.luxoftmarket.domain.Good;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,18 +18,18 @@ public class GoodRepository { //для этого нам нужно добавить необходимые зависим
         @Autowired
         private SessionFactory sessionFactory;
 
-
        public void addGood(Good good) {
             this.sessionFactory.getCurrentSession().save(good);
         }
 
+    public void editGood(Good good) { }
 
-        public List<Good> listAll() {
+       public List<Good> listAll() {
             return this.sessionFactory.getCurrentSession().createQuery("from Good").list();
         }
 
 
-        public void removeGood(Integer id) {
+       public void removeGood(Integer id) {
             Good contact = (Good) this.sessionFactory.getCurrentSession().load(
             Good.class, id);
             if (null != contact) {
