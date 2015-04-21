@@ -13,6 +13,11 @@
 
        <!-- Для использования place holder (вида ${jdbc.databaseurl} необходимо включить следующий context:property-placeholder-->
        <!--<context:property-placeholder location="classpath:jdbc.properties" system-properties-mode="ENVIRONMENT"/>-->
+
+       <!--SQL -->
+       <!--<context:property-placeholder location="classpath:jdbc.properties" />-->
+
+       <!-- H2 -->
        <context:property-placeholder location="classpath:jdbc.properties" />
 
        <!-- Необходимо добавить component-scan для всех бинов, которые создаются аннотациями (например GoodRepository) -->

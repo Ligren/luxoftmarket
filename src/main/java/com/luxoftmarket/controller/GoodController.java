@@ -26,7 +26,6 @@ package com.luxoftmarket.controller;
 
 import com.luxoftmarket.domain.Good;
 import com.luxoftmarket.repository.GoodRepository;
-import com.luxoftmarket.repository.IGoodRepository;
 import com.luxoftmarket.validation.GoodValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,19 +41,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-public class GoodController implements IGoodController {
+public class GoodController {// implements IGoodController {
 
     private GoodValidator goodValidator; //создаем зависимость на валидатор
-    private IGoodRepository goodRepository;
+    private GoodRepository goodRepository;
 
     @Autowired
-    public GoodController(IGoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
+    public GoodController(GoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
         this.goodRepository = goodRepository;
         this.goodValidator = goodValidator;
     }
 
 
-    @Override
+    //    @Override
     @RequestMapping(value = "/", method = RequestMethod.GET)//при заходе на стартовую страницу
     public String getGoods(Model model) {
         List<Good> goods = this.goodRepository.listAll();
@@ -63,32 +62,32 @@ public class GoodController implements IGoodController {
         return "index"; //возвращаем страницу index
     }
 
-    @Override
+    //    @Override
     @RequestMapping(value = "addGood", method = RequestMethod.GET)// при вызове метода c URL addBook c requestMethod GET --- нажали на ссылку
     @PreAuthorize("isAuthenticated()")
     public String addGood(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
         model.addAttribute("good", new Good());
-       return "addGood"; //возвращаем страницу addBook
+        return "addGood"; //возвращаем страницу addBook
     }
 
-    @Override
+    //    @Override
     @RequestMapping(value = "addGood", method = RequestMethod.POST) // метод c URL addBook c requestMethod POST ---- нажали на кнопку
 //    @PreAuthorize("isAuthenticated()")
     @PreAuthorize("hasRole('admin')")
     public String addGood(@ModelAttribute("good") Good good, BindingResult bindingResult) { //будет добавлять новую книгу в базу данных, добавили Binding Result который будет хранить в себе ошибки
-            this.goodValidator.validate(good, bindingResult);                                   //валидации
-            if (bindingResult.hasErrors()) { //перед сохранением книги в базу, проверяем, с помощью созданного валидатора, нашу модель на предмет ошибок ? и все ошибки записываются в Binding Result
-        return "addGood"; // если есть ошибки, возвращаем ту-же самую вьюху
-    }
-        this.goodRepository.addGood(good);
-            return "redirect:/"; //переходим на страницу главную /
+        this.goodValidator.validate(good, bindingResult);                                   //валидации
+        if (bindingResult.hasErrors()) { //перед сохранением книги в базу, проверяем, с помощью созданного валидатора, нашу модель на предмет ошибок ? и все ошибки записываются в Binding Result
+            return "addGood"; // если есть ошибки, возвращаем ту-же самую вьюху
         }
+        this.goodRepository.addGood(good);
+        return "redirect:/"; //переходим на страницу главную /
+    }
 
-    @Override
+    //    @Override
     @RequestMapping(value = "deleteGood/{id}", method = RequestMethod.GET) // --- нажали на ссылку
     @PreAuthorize("hasRole('admin')")
     public String deleteGood(@PathVariable Integer id) {
-            this.goodRepository.removeGood(id);
+        this.goodRepository.removeGood(id);
         return "redirect:/";
     }
 

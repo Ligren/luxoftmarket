@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @Transactional // включает возможность транзакции в этом классе (все методы в это классе будут выполнятся как транзакция)
-public class GoodRepository implements IGoodRepository { //для этого нам нужно добавить необходимые зависимости на Спринговые библиотеки для работы с транзакциями
+public class GoodRepository { //для этого нам нужно добавить необходимые зависимости на Спринговые библиотеки для работы с транзакциями
 
 
 
@@ -18,17 +18,17 @@ public class GoodRepository implements IGoodRepository { //для этого нам нужно д
         @Autowired
         private SessionFactory sessionFactory;
 
-       @Override
+
        public void addGood(Good good) {
             this.sessionFactory.getCurrentSession().save(good);
         }
 
-        @Override
+
         public List<Good> listAll() {
             return this.sessionFactory.getCurrentSession().createQuery("from Good").list();
         }
 
-        @Override
+
         public void removeGood(Integer id) {
             Good contact = (Good) this.sessionFactory.getCurrentSession().load(
             Good.class, id);
