@@ -5,6 +5,8 @@
 <!doctype>
 <html>
 <head>
+    <%--<link rel="icon" type="image/png" href="/favicon.png" />--%>
+    <%--someimage.png--%>
     <meta charset="utf-8">
     <link href="<c:url value="/resources/c/main.css" />" rel="stylesheet">
     <script src="<c:url value="/resources/s/goodsUtil.js" />"></script>

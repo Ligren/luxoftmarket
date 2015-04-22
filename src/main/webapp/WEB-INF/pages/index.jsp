@@ -26,13 +26,13 @@
     <a href="addUser">Регистрация</a>
   </sec:authorize>
 
-  <sec:authorize access="isAuthenticated()">
-    <a href="addUser">Приступить к покупк (админу тоже можно)</a>
-  </sec:authorize>
+  <%--<sec:authorize access="isAuthenticated()">--%>
+    <a href="byu">Приступить к покупкам (админу тоже можно)</a>
+  <%--</sec:authorize>--%>
 
-  <sec:authorize access="hasRole('admin')">
-    <td><a href="с">В кабинет админа</a></td>
-  </sec:authorize>
+  <%--<sec:authorize access="hasRole('admin')">--%>
+    <td><a href="admin">В кабинет админа</a></td>
+  <%--</sec:authorize>--%>
 
 
 </t:template>

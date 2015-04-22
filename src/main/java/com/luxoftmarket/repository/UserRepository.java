@@ -8,28 +8,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-    @Repository
-    @Transactional
+//    @Repository
+//    @Transactional
     public class UserRepository {
-
-        @Autowired
-        private SessionFactory sessionFactory;
-
-       public void addUser(User user) {
-           System.out.println("Добавляем в репозитории");
-           this.sessionFactory.getCurrentSession().save(user);
-        }
-
-        public List<User> listAll() {
-            return this.sessionFactory.getCurrentSession().createQuery("from User").list();
-        }
-
-        public void removeUser(Integer id) {
-            User contact = (User) this.sessionFactory.getCurrentSession().load(
-                    User.class, id);
-            if (null != contact) {
-                this.sessionFactory.getCurrentSession().delete(contact);
-            }
-        }
+//
+//        @Autowired
+//        private SessionFactory sessionFactory;
+//
+//       public void addUser(User user) {
+//
+//           this.sessionFactory.getCurrentSession().save(user);
+//        }
+//
+//        public List<User> listAll() {
+//            return this.sessionFactory.getCurrentSession().createQuery("from User").list();
+//        }
+//
+//        public void removeUser(Integer id) {
+//            User contact = (User) this.sessionFactory.getCurrentSession().load(
+//                    User.class, id);
+//            if (null != contact) {
+//                this.sessionFactory.getCurrentSession().delete(contact);
+//            }
+//        }
 
     }

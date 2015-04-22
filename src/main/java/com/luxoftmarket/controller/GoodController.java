@@ -21,6 +21,9 @@ http://www.mkyong.com/spring-mvc/spring-mvc-log4j-integration-example/ log4j
 https://vimeo.com/58008858 unit test (JUnit, Mockito)
 http://mrbool.com/how-to-create-a-login-application-using-spring-mvc-in-java/27113 login application
 http://habrahabr.ru/post/243155/ Unit test Mockito
+session http://stackoverflow.com/questions/4931323/whats-the-difference-between-getrequesturi-and-getpathinfo-methods-in-httpservl
+session http://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html
+session http://www.java2s.com/Code/JavaAPI/javax.servlet.http/HttpSessionsetAttributeStringkeyObjectvalue.htm
 */
 package com.luxoftmarket.controller;
 
@@ -40,38 +43,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@Controller
+//@Controller
 public class GoodController {// implements IGoodController {
 
     private GoodValidator goodValidator; //создаем зависимость на валидатор
     private GoodRepository goodRepository;
 
-    @Autowired
+//    @Autowired
     public GoodController(GoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
         this.goodRepository = goodRepository;
         this.goodValidator = goodValidator;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)//при заходе на стартовую страницу
-    public String index(Model model) {
-        return "index";
-    }
 
-    @RequestMapping(value = "allGoods", method = RequestMethod.GET)//при заходе на стартовую страницу
-    public String allGoods(Model model) {
-        List<Good> goods = this.goodRepository.listAll();
-        model.addAttribute("goods", goods);
-        return "index"; //возвращаем страницу index
-    }
-
-    //    @Override
+/*    //    @Override
     @RequestMapping(value = "addGood", method = RequestMethod.GET)// при вызове метода c URL addBook c requestMethod GET --- нажали на ссылку
     @PreAuthorize("isAuthenticated()")
     public String addGood(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
         model.addAttribute("good", new Good());
         return "addGood"; //возвращаем страницу addBook
     }
-
+/*
     @RequestMapping(value = "admin", method = RequestMethod.GET)// при вызове метода c URL addBook c requestMethod GET --- нажали на ссылку
     @PreAuthorize("hasRole('admin')")
     public String admin(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
@@ -89,7 +81,7 @@ public class GoodController {// implements IGoodController {
             return "addGood"; // если есть ошибки, возвращаем ту-же самую вьюху
         }
         this.goodRepository.addGood(good);
-        return "redirect:/"; //переходим на страницу главную /
+        return "redirect:/allGoods"; //переходим на страницу главную / redirect:/
     }
 
     //    @Override
@@ -100,10 +92,29 @@ public class GoodController {// implements IGoodController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "byu/{id}", method = RequestMethod.GET) // --- нажали на ссылку
+    @PreAuthorize("isAuthenticated()")
+    public String byuGood(@PathVariable Integer id, @ModelAttribute("good") Good good) {
+        //находим в AllGood и отнимаем то количество, которое купили, если количества недостаточно, выдаем пользователю ошибку
+
+//        goodService.edit(good);
+        //goodRepository.editGood(good);
+        //goodResult = good;
+
+
+
+        //добавляем в корзину новую Good
+
+//        this.goodRepository.removeGood(id);
+        return "redirect:/allGoods";
+    }
+
 //    @RequestMapping(value="/logout", method = RequestMethod.GET)
 //    public String logout(ModelMap model) {
 //        System.out.println("logout string");
 //        return "index";
 //
 //    }
+    */
+
 }

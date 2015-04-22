@@ -12,7 +12,6 @@ public class Good {
     @GeneratedValue
     private Integer id;
 
-
     @Column(name = "good_name")
     private String name;
 
@@ -21,6 +20,14 @@ public class Good {
 
     @Column(name = "good_amount")
     private Integer amount;
+
+    public Good() {}
+
+    public Good(String name, Integer price, Integer amount) {
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+    }
 
     public Integer getId() {
         return id;

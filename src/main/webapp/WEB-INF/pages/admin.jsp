@@ -2,47 +2,56 @@
 <%@ include file="/WEB-INF/tags/includes.jsp"%>
 
 <t:template>
-  <!--проверка на условие, если books is !empty тогда заходим в условие-->
-  <c:if test = "${!empty goods}">
-    <!--начало таблицы-->
-    <table class="good-list-table">
-      <!--столбци-->
+  <h1>Товары</h1>
+  <form:form action="good.do" method="POST" commandName="good">
+    <table>
       <tr>
-        <th>Название</th>
-        <th>Цена</th>
-        <th>Остаток на складе</th>
-        <sec:authorize access="hasRole('admin')">
-          <th>&nbsp;</th>
-        </sec:authorize>
-
+        <td>Артикул</td>
+        <td><form:input path="id" /></td>
       </tr>
-      <!--конец столбци-->
-      <!--начало строки, цикл, для каждой строки из books (список из Джавы), каждая строка приписывается внутренней переменной book  -->
-      <c:forEach items="${goods}" var="good">
-        <!-- выводим строку -->
-        <tr>
-          <td>${good.name}</td>
-          <td>${good.price}</td>
-          <td>${good.amount}</td>
-          <sec:authorize access="hasRole('admin')">
-            <td><a href="javascript:GoodsUtil.deleteGood(${good.id})">Delete</a></td>
-          </sec:authorize>
-        </tr>
-      </c:forEach>
+      <tr>
+        <td>Название</td>
+        <td><form:input path="name" /></td>
+    </tr>
+      <tr>
+        <td>Цена</td>
+        <td><form:input path="price" /></td>
+      </tr>
+
+      <tr>
+        <td>Количество</td>
+        <td><form:input path="Amount" /></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="submit" name="action" value="Add" />
+          <input type="submit" name="action" value="Edit" />
+          <input type="submit" name="action" value="Delete" />
+          <input type="submit" name="action" value="Search" />
+        </td>
+      </tr>
     </table>
-  </c:if>
-  <sec:authorize access="isAuthenticated()">
-    <!-- ссылка на addBook с надписью Add book -->
-    <!--@RequestMapping(value = "addBook", method = RequestMethod.GET) -->
-    <a href="addGood">Add goods</a>
-  </sec:authorize>
 
-  <sec:authorize access="isAnonymous()">
-    <!-- ссылка на addBook с надписью Add book -->
-    <!--@RequestMapping(value = "addBook", method = RequestMethod.GET) -->
-    <a href="addUser">Регистрация</a>
-  </sec:authorize>
+  </form:form>
+  <br border = "1">
+  <table>
+    <tr>
+    <th>ID</th>
+    <th>Good</th>
+    <th>Price</th>
+    <th>Amount</th>
+    </tr>
 
+    <c:forEach items="${goodList}" var="good">
+      <tr>
+        <td>${good.id}</td>
+        <td>${good.name}</td>
+        <td>${good.price}</td>
+        <td>${good.amount}</td>
+      </tr>
 
+    </c:forEach>
+
+  </table>
+  <a href="byu">Приступить к покупкам</a>
 </t:template>
-

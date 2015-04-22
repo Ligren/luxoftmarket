@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 public class UserController {
-
+/*
     private UserValidator userValidator;
     private UserRepository userRepository;
     private Logger log = LoggerFactory.getLogger( UserController.class ); // 1. Объявляем переменную логгера
@@ -30,22 +30,10 @@ public class UserController {
         this.userValidator = userValidator;
     }
 
-/*
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getBooks(Model model) {
-        List<User> goods = this.userRepository.listAll();
-        model.addAttribute("goods", goods);
-        return "index";
-    }
-
-*/
     @RequestMapping(value = "addUser", method = RequestMethod.GET)
     @PreAuthorize("isAnonymous()")
     public String addUser(Model model) {
-//        log.info( "Some object: {}", object );
         log.info( "-----------------------Some object: {we are in the method add User, requestMethod GET}");
-        System.out.println("Here must be log!");
-
         model.addAttribute("user", new User());
         return "addUser";
     }
@@ -58,16 +46,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
            return "addUser";
         }
-        System.out.println("Добавляем в контроллере");
         this.userRepository.addUser(user);
         return "redirect:/";
-    }
-/*
-    @RequestMapping(value = "deleteUser/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('admin')")
-    public String deleteUser(@PathVariable Integer id) {
-        this.userRepository.removeUser(id);
-        return "redirect:/";
-    }
-    */
+    }*/
 }
