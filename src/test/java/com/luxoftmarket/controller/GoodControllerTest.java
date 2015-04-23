@@ -18,7 +18,7 @@ public class GoodControllerTest {
     Good mockGood;
     BindingResult mockBindingResult;
 
-    @Before
+//    @Before
     public void setUpMethod() throws Exception {
 /*        mockModel = mock(Model.class);
         mockGoodRepository = mock(IGoodRepository.class);
@@ -31,7 +31,7 @@ public class GoodControllerTest {
 */
     }
 
-    @Test
+//    @Test
     public void testGetGoods() throws Exception {
         /*
             public String getGoods(Model model) {
@@ -59,7 +59,7 @@ when(mockGoodRepository.listAll()).thenReturn();
  */
     }
 
-    @Test
+//    @Test
     public void testAddGoodGet() throws Exception {
         /*
             public String addGood(Model model) {
@@ -76,7 +76,7 @@ when(mockGoodRepository.listAll()).thenReturn();
         assertEquals("addGood", url);*/
     }
 
-    @Test
+//    @Test
     public void testAddGoodPostHasError() throws Exception {
         /*
             public String addGood(@ModelAttribute("good") Good good, BindingResult bindingResult) {
@@ -106,7 +106,7 @@ when(mockGoodRepository.listAll()).thenReturn();
         */
     }
 
-    @Test
+//    @Test
     public void testDeleteGood() throws Exception {
         /*
             @RequestMapping(value = "deleteGood/{id}", method = RequestMethod.GET)
