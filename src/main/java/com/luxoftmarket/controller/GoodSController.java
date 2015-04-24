@@ -82,33 +82,43 @@ public class GoodSController {
         return "admin";
     }
 
-    @RequestMapping(value="buy", method=RequestMethod.GET)
+    @RequestMapping(value="/buy", method=RequestMethod.GET)
 //    @PreAuthorize("isAuthenticated()")
     public String byuStart(Map<String, Object> map) {
-        System.out.println("Ѕлин, мы не в том методе!");
+//        System.out.println("Ѕлин, мы не в том методе!");
 //        testSession();
 //        Good good = new Good();
 //        map.put("good", good);
         map.put("goodList", goodService.getAllGood());
-//        System.out.println(goodService.getAllGood().toString());
-//        System.out.println("Here must be goods!");
         return "buy";
     }
 
 
+    @RequestMapping(value="buytest", method=RequestMethod.POST)
+    public String byuGoodTest(@ModelAttribute("mystring") String mystring) {
+        System.out.println("here is my string: " + mystring);
+        return "buy";
+    }
+
 //    @RequestMapping(value="byu", method=RequestMethod.POST)
-        @RequestMapping(value="/buy.do", method=RequestMethod.POST)
+        @RequestMapping(value="buy", method=RequestMethod.POST)
 //    @PreAuthorize("isAuthenticated()")
 //    public String byuGood(HttpServletRequest req) { //BindingResult bindingResul
-        public String byuGood(@ModelAttribute Good good, @RequestParam String namereturn, Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
+//        public String byuGood(@ModelAttribute("amount") int amount, @ModelAttribute("good") String good, Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
+            public String byuGood(@ModelAttribute("good") String good, Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
+//            @ModelAttribute Good good, @RequestParam String action @ModelAttribute("amount") String amount
 //        if (action.toLowerCase() != "byu"){
 //            return "redirect:/byu";
 //        }
 //        int amountk=546;
 //        Good good = new Good();
         int amountOfGood = 0;//new Integer(amount);
-        System.out.println("Here us new amount = " + namereturn);
-        System.out.println("Here us name good = " + good.getName());
+//            System.out.println("Here us new amount 1 = " + amount);
+            System.out.println("Here is good id = " + good);
+//            int amount2 = new Integer(amount);
+//            int amount2 = Integer.parseInt(amount);
+//        System.out.println("Here us new amount 2 = " + amount2);
+//        System.out.println("Here us name good = " + good);
 
         HttpSession session = req.getSession();
         Map<Good, Integer> purchase = null;
@@ -127,7 +137,7 @@ public class GoodSController {
             session.setAttribute("goodInBasket", inPurchase);
             purchase = inPurchase;
         }
-        purchase.put(good, amountOfGood);
+//        purchase.put(good, amountOfGood);
 //        map.put("goodInBasket", purchase);
         return "buy"; //возвращаем страницу addBook
     }

@@ -46,14 +46,14 @@ import java.util.List;
 //@Controller
 public class GoodController {// implements IGoodController {
 
-    private GoodValidator goodValidator; //создаем зависимость на валидатор
-    private GoodRepository goodRepository;
+   // private GoodValidator goodValidator; //создаем зависимость на валидатор
+   // private GoodRepository goodRepository;
 
 //    @Autowired
-    public GoodController(GoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
-        this.goodRepository = goodRepository;
-        this.goodValidator = goodValidator;
-    }
+  //  public GoodController(GoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
+  //      this.goodRepository = goodRepository;
+   //     this.goodValidator = goodValidator;
+   // }
 
 
 /*    //    @Override

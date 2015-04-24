@@ -53,5 +53,5 @@
     </c:forEach>
 
   </table>
-  <a href="byu">Приступить к покупкам</a>
+  <a href="buy">Приступить к покупкам</a>
 </t:template>

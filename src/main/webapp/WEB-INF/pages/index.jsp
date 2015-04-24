@@ -27,7 +27,7 @@
   </sec:authorize>
 
   <%--<sec:authorize access="isAuthenticated()">--%>
-    <a href="byu">Приступить к покупкам (админу тоже можно)</a>
+    <a href="buy">Приступить к покупкам (админу тоже можно)</a>
   <%--</sec:authorize>--%>
 
   <%--<sec:authorize access="hasRole('admin')">--%>

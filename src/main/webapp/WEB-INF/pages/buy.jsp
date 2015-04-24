@@ -12,7 +12,7 @@
       <%--<form:form method="POST" action="byuGood" commandName="good"/>--%>
       <%--<form:form action="buy.do" method="POST" commandName="good">--%>
 
-      <table class="good-list-table">
+      <%--<table class="good-list-table">--%>
         <!--столбци-->
         <tr>
           <th>Название</th>
@@ -23,25 +23,41 @@
         </tr>
         <!--конец столбци-->
         <!--начало строки, цикл, для каждой строки из books (список из Джавы), каждая строка приписывается внутренней переменной book  -->
-        <c:forEach items="${goodList}" var="good">
+        <%--<c:forEach items="${goodList}" var="good">--%>
           <!-- выводим строку -->
-          <tr>
+          <%--<tr>--%>
+
+  <c:forEach items="${goodList}" var="good">
+    <form action="buy" method="POST">
+        <%--<input type="hidden" name="good" value="${good.id}">--%>
+      <input type="hidden" name="good" value="its my string">
+      <input type="text" name="amount">
+      <input type="submit" value="Buy">
+    </form>
+  </c:forEach>
+
+  <form action="buytest" method="POST" commandName="mystring">
+      <input type="text" name="mystring" value="its my string" path="mystring">
+    <input type="submit" value="buytest">
+  </form>
+
+
 
               <%--<c:forEach items="${goodInBasket}" var="good">--%>
           <%--<tr>--%>
-            <td><form:label path="email">${good.name}</form:label></td>
-            <td><form:input path="email" /></td>
-            <td><form:errors cssClass="error" path="email"></form:errors></td>
+            <%--<td><form:label path="email">${good.name}</form:label></td>--%>
+            <%--<td><form:input path="email" /></td>--%>
+            <%--<td><form:errors cssClass="error" path="email"></form:errors></td>--%>
           <%--</tr>--%>
 
 
-            <td>${good.name}</td>
-            <td>${good.price}</td>
-            <td>${good.amount}</td>
-
-            <td><input type="text" size="5" name="namereturn"  /></td>
-
-            <td><input type="submit" name="action" value="byu"/></td>
+            <%--<td>${good.name}</td>--%>
+            <%--<td>${good.price}</td>--%>
+            <%--<td>${good.amount}</td>--%>
+<%----%>
+            <%--<td><input type="text" size="5" name="namereturn"  /></td>--%>
+<%----%>
+            <%--<td><input type="submit" name="action" value="byu"/></td>--%>
             <%--<input type="submit" name="action" value="Add" />--%>
 
             <%--value="bYu" - имя на дисплее--%>
@@ -51,9 +67,9 @@
             <%--<td><form:label path="email">Ваш email</form:label></td>--%>
             <%--<td><form:input path="email" /></td>--%>
             <%--<td><form:errors cssClass="error" path="email"></form:errors></td>--%>
-          </tr>
-        </c:forEach>
-      </table>
+          <%--</tr>--%>
+        <%--</c:forEach>--%>
+      <%--</table>--%>
       <%--</form:form>--%>
 
 
