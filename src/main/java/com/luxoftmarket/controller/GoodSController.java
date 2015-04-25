@@ -43,8 +43,8 @@ public class GoodSController {
 */
 
 
-//    @RequestMapping(value="/admin", method=RequestMethod.GET)
-    @RequestMapping(value="/admin")
+    //    @RequestMapping(value="/admin", method=RequestMethod.GET)
+    @RequestMapping(value = "/admin")
 //    @PreAuthorize("hasRole('admin')")
     public String setupForm(Map<String, Object> map) {
 //        testSession();
@@ -56,10 +56,10 @@ public class GoodSController {
         return "admin";
     }
 
-    @RequestMapping(value="/good.do", method=RequestMethod.POST)
+    @RequestMapping(value = "/good.do", method = RequestMethod.POST)
     public String doAction(@ModelAttribute Good good, @RequestParam String action, Map<String, Object> map) { //BindingResult bindingResult
         Good goodResult = new Good();
-        switch(action.toLowerCase()){
+        switch (action.toLowerCase()) {
             case "add":
                 goodService.add(good);
                 goodResult = good;
@@ -73,7 +73,7 @@ public class GoodSController {
                 goodResult = new Good();
                 break;
             case "search":
-                Good searchedGood =  goodService.getGood(good.getId());
+                Good searchedGood = goodService.getGood(good.getId());
                 goodResult = searchedGood != null ? searchedGood : new Good();
                 break;
         }
@@ -82,7 +82,7 @@ public class GoodSController {
         return "admin";
     }
 
-    @RequestMapping(value="/buy", method=RequestMethod.GET)
+    @RequestMapping(value = "/buy", method = RequestMethod.GET)
 //    @PreAuthorize("isAuthenticated()")
     public String byuStart(Map<String, Object> map) {
 //        System.out.println("Блин, мы не в том методе!");
@@ -94,31 +94,23 @@ public class GoodSController {
     }
 
 
-    @RequestMapping(value="buytest", method=RequestMethod.POST)
-    public String byuGoodTest(@ModelAttribute("mystring") String mystring) {
-        System.out.println("here is my string: " + mystring);
+    @RequestMapping(value = "buytest", method = RequestMethod.POST)
+    public String byuGoodTest(HttpServletRequest req) {
+        System.out.println("here is my string: " + req.getParameter("mystring"));
         return "buy";
     }
 
-//    @RequestMapping(value="byu", method=RequestMethod.POST)
-        @RequestMapping(value="buy", method=RequestMethod.POST)
+    //    @RequestMapping(value="byu", method=RequestMethod.POST)
+    @RequestMapping(value = "buy", method = RequestMethod.POST)
 //    @PreAuthorize("isAuthenticated()")
 //    public String byuGood(HttpServletRequest req) { //BindingResult bindingResul
 //        public String byuGood(@ModelAttribute("amount") int amount, @ModelAttribute("good") String good, Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
-            public String byuGood(@ModelAttribute("good") String good, Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
+    public String byuGood(Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
 //            @ModelAttribute Good good, @RequestParam String action @ModelAttribute("amount") String amount
-//        if (action.toLowerCase() != "byu"){
-//            return "redirect:/byu";
-//        }
-//        int amountk=546;
-//        Good good = new Good();
-        int amountOfGood = 0;//new Integer(amount);
-//            System.out.println("Here us new amount 1 = " + amount);
-            System.out.println("Here is good id = " + good);
-//            int amount2 = new Integer(amount);
-//            int amount2 = Integer.parseInt(amount);
-//        System.out.println("Here us new amount 2 = " + amount2);
-//        System.out.println("Here us name good = " + good);
+
+        int amount = Integer.parseInt(req.getParameter("amount"));
+        int goodId = Integer.parseInt(req.getParameter("good"));
+        System.out.println("Our good id = " + goodId + ", our amount = " + amount);
 
         HttpSession session = req.getSession();
         Map<Good, Integer> purchase = null;
@@ -128,47 +120,18 @@ public class GoodSController {
             String namef = (String) e.nextElement();
             if (namef.equals("goodInBasket")) {
                 createdNewPurchase = false;
-                purchase = (Map)session.getAttribute( "goodInBasket" );;
+                purchase = (Map) session.getAttribute("goodInBasket");
             }
         }
 
         if (createdNewPurchase = true) {
             Map<Good, Integer> inPurchase = new HashMap<Good, Integer>();
             session.setAttribute("goodInBasket", inPurchase);
+            map.put("goodInBasket", purchase);
             purchase = inPurchase;
         }
-//        purchase.put(good, amountOfGood);
-//        map.put("goodInBasket", purchase);
+        purchase.put(goodService.getGood(goodId), amount);
+
         return "buy"; //возвращаем страницу addBook
     }
-
-
-  /*  @RequestMapping(value="/good.do", method=RequestMethod.POST)
-    public String byu(@ModelAttribute Good good, BindingResult bindingResult, @RequestParam String action, Map<String, Object> map) {
-        Good goodResult = new Good();
-        switch(action.toLowerCase()){
-            case "add":
-                goodService.add(good);
-                goodResult = good;
-                break;
-            case "edit":
-                goodService.edit(good);
-                goodResult = good;
-                break;
-            case "delete":
-                goodService.delete(good.getId());
-                goodResult = new Good();
-                break;
-            case "search":
-                Good searchedGood =  goodService.getGood(good.getId());
-                goodResult = searchedGood != null ? searchedGood : new Good();
-                break;
-        }
-        map.put("good", goodResult);
-        map.put("goodInBasket", goodService.getAllGood());
-        return "admin";
-    }
-*/
-
-
 }

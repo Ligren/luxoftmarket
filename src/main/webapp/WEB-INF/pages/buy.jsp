@@ -29,17 +29,25 @@
 
   <c:forEach items="${goodList}" var="good">
     <form action="buy" method="POST">
-        <%--<input type="hidden" name="good" value="${good.id}">--%>
-      <input type="hidden" name="good" value="its my string">
+      <%--<form name="testForm" method="post" action="testJSP.jsp">--%>
+          <%--<input type="text" name="testParam" value="Hello Vaibhav">--%>
+
+          <%--<input type="submit">--%>
+        <input type="hidden" name="good" value="${good.id}">
+          <td>${good.name}</td>
+          <td>${good.price}</td>
+          <td>${good.amount}</td>
+
+      <%--<input type="hidden" name="good" value="its my string">--%>
       <input type="text" name="amount">
       <input type="submit" value="Buy">
     </form>
   </c:forEach>
 
-  <form action="buytest" method="POST" commandName="mystring">
-      <input type="text" name="mystring" value="its my string" path="mystring">
-    <input type="submit" value="buytest">
-  </form>
+  <%--<form action="buytest" method="POST" commandName="mystring">--%>
+      <%--<input type="text" name="mystring" value="its my string" path="mystring">--%>
+    <%--<input type="submit" value="buytest">--%>
+  <%--</form>--%>
 
 
 
@@ -54,7 +62,7 @@
             <%--<td>${good.name}</td>--%>
             <%--<td>${good.price}</td>--%>
             <%--<td>${good.amount}</td>--%>
-<%----%>
+
             <%--<td><input type="text" size="5" name="namereturn"  /></td>--%>
 <%----%>
             <%--<td><input type="submit" name="action" value="byu"/></td>--%>
@@ -104,15 +112,15 @@
         <th>Количество</th>
       </tr>
 
-      <%--<c:forEach items="${goodInBasket}" var="good">--%>
-        <%--<tr>--%>
-          <%--<td>${good.id}</td>--%>
-          <%--<td>${good.name}</td>--%>
-          <%--<td>${good.price}</td>--%>
+      <c:forEach items="${goodInBasket}" var="good">
+        <tr>
+          <td>${good.id}</td>
+          <td>${good.name}</td>
+          <td>${good.price}</td>
           <%--<td>${good.amount}</td>--%>
-        <%--</tr>--%>
+        </tr>
 
-      <%--</c:forEach>--%>
+      </c:forEach>
     </table>
     <%--</c:if>--%>
   <c:if test = "${empty goodList}">
@@ -122,7 +130,6 @@
   <%--<sec:authorize access="hasRole('admin')">--%>
   <td><a href="admin">В кабинет админа</a></td>
   <%--</sec:authorize>--%>
-
 
   <%--</form:form>--%>
 </t:template>
