@@ -21,13 +21,13 @@
                     <td>${good.name}</td>
                     <td>${good.price}</td>
                     <td>${good.amount}</td>
-                    <input type="text" name="amount" size="5">
+                    <input type="text" name="amount" size="5" required>
                     <input type="submit" value="Buy">
                 </form>
             </c:forEach>
             <h3> Товары, которые уже находятся в корзине</h3>
             <br border="1">
-            <table>
+            <table class="good-list-table">
                 <tr>
                     <th>ID</th>
                     <th>Товар</th>

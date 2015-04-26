@@ -10,7 +10,7 @@
         <td><form:label path="nick">
           Ваш ник
         </form:label></td>
-        <td><form:input path="nick" /></td>
+        <td><form:input path="nick" type="text"/></td>
         <td><form:errors cssClass="error" path="nick"></form:errors></td>
       </tr>
 
@@ -18,7 +18,7 @@
         <td><form:label path="password">
           Ваш пароль (мин 6 символов)
         </form:label></td>
-        <td><form:input type="password" size="25" path="password" accept-charset="UTF-8" /></td>
+        <td><form:input type="password" size="25" path="password" accept-charset="UTF-8"/></td>
         <td><form:errors cssClass="error" path="password"></form:errors></td>
       </tr>
 

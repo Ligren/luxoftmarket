@@ -37,7 +37,7 @@ public class UserController {
         model.addAttribute("user", new User());
         return "addUser";
     }
-/*
+
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
 //    @PreAuthorize("hasRole('admin')")
@@ -48,5 +48,5 @@ public class UserController {
         }
         this.userRepository.addUser(user);
         return "redirect:/";
-    }*/
+    }
 }

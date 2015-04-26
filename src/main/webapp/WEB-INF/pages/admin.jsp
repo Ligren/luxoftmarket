@@ -4,23 +4,23 @@
 <t:template>
     <h1>Товары</h1>
     <form:form action="good.do" method="POST" commandName="good">
-        <table>
+        <table class="good-list-table">
             <tr>
                 <td>Id (autoincrement)</td>
-                <td><form:input path="id"/></td>
+                <td><form:input path="id" type="number"/></td>
             </tr>
             <tr>
                 <td>Название</td>
-                <td><form:input path="name"/></td>
+                <td><form:input path="name" type="text"/></td>
             </tr>
             <tr>
                 <td>Цена</td>
-                <td><form:input path="price"/></td>
+                <td><form:input path="price" type="number"/></td>
             </tr>
 
             <tr>
                 <td>Количество</td>
-                <td><form:input path="Amount"/></td>
+                <td><form:input path="Amount" type="number"/></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -34,7 +34,7 @@
 
     </form:form>
     <br border="1">
-    <table>
+    <table class="good-list-table">
         <tr>
             <th>ID</th>
             <th>Good</th>

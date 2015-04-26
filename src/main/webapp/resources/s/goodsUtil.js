@@ -8,3 +8,5 @@ function _GoodsUtil() {
 }
 
 var GoodsUtil = new _GoodsUtil();
+
+/*<td><a href="javascript:GoodsUtil.deleteGood(${good.id})">Delete</a></td>*/

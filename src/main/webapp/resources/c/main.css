@@ -20,3 +20,8 @@ td, th {
 .login-link-container {
     text-align: right;
 }
+
+input:required:invalid {
+    border:1px solid red;
+}
+
