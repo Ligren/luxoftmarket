@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 public class UserController {
-/*
+
     private UserValidator userValidator;
     private UserRepository userRepository;
     private Logger log = LoggerFactory.getLogger( UserController.class ); // 1. Объявляем переменную логгера
@@ -37,7 +37,7 @@ public class UserController {
         model.addAttribute("user", new User());
         return "addUser";
     }
-
+/*
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
 //    @PreAuthorize("hasRole('admin')")

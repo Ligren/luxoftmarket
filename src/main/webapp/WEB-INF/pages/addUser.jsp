@@ -26,10 +26,9 @@
         <td><form:label path="email">
           Ваш email
         </form:label></td>
-        <td><form:input path="email" /></td>
+        <td><form:input type="email" path="email"/></td>
         <td><form:errors cssClass="error" path="email"></form:errors></td>
       </tr>
-
 
       <tr>
         <td colspan="2"><input type="submit" value="Регистрация" /></td>

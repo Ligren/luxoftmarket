@@ -1,5 +1,4 @@
 /*
-
 http://devcolibri.com/2890 подключение js и css
 https://www.youtube.com/watch?v=rdYQOqxq9F0 CRUD Spring MVC, Hibarnate, Eclipse
 https://www.youtube.com/watch?v=vR6jYVEMJS0 Spring security
@@ -25,96 +24,139 @@ session http://stackoverflow.com/questions/4931323/whats-the-difference-between-
 session http://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html
 session http://www.java2s.com/Code/JavaAPI/javax.servlet.http/HttpSessionsetAttributeStringkeyObjectvalue.htm
 */
+
 package com.luxoftmarket.controller;
 
 import com.luxoftmarket.domain.Good;
-import com.luxoftmarket.repository.GoodRepository;
-import com.luxoftmarket.validation.GoodValidator;
+import com.luxoftmarket.service.IGoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-//@Controller
-public class GoodController {// implements IGoodController {
+@Controller
+public class GoodController {
 
-   // private GoodValidator goodValidator; //создаем зависимость на валидатор
-   // private GoodRepository goodRepository;
+    @Autowired
+    private IGoodService goodService;
 
-//    @Autowired
-  //  public GoodController(GoodRepository goodRepository, GoodValidator goodValidator){ // валидатор необходимо прописать в конструкторе
-  //      this.goodRepository = goodRepository;
-   //     this.goodValidator = goodValidator;
-   // }
-
-
-/*    //    @Override
-    @RequestMapping(value = "addGood", method = RequestMethod.GET)// при вызове метода c URL addBook c requestMethod GET --- нажали на ссылку
-    @PreAuthorize("isAuthenticated()")
-    public String addGood(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
-        model.addAttribute("good", new Good());
-        return "addGood"; //возвращаем страницу addBook
+    @RequestMapping(value = "/", method = RequestMethod.GET)//при заходе на стартовую страницу
+    public String index() {
+        return "index";
     }
-/*
-    @RequestMapping(value = "admin", method = RequestMethod.GET)// при вызове метода c URL addBook c requestMethod GET --- нажали на ссылку
-    @PreAuthorize("hasRole('admin')")
-    public String admin(Model model) {                        //возвращает страницу addBook.jsp в которой будет форма для добавления новой книги с кнопкой add book
-//        model.addAttribute("good", new Good());
+
+    @RequestMapping(value = "/admin")
+//    @PreAuthorize("hasRole('admin')")
+    public String setupForm(Map<String, Object> map) {
+        Good good = new Good();
+        map.put("good", good);
+        map.put("goodList", goodService.getAllGood());
         return "admin";
     }
 
-    //    @Override
-    @RequestMapping(value = "addGood", method = RequestMethod.POST) // метод c URL addBook c requestMethod POST ---- нажали на кнопку
-//    @PreAuthorize("isAuthenticated()")
-    @PreAuthorize("hasRole('admin')")
-    public String addGood(@ModelAttribute("good") Good good, BindingResult bindingResult) { //будет добавлять новую книгу в базу данных, добавили Binding Result который будет хранить в себе ошибки
-        this.goodValidator.validate(good, bindingResult);                                   //валидации
-        if (bindingResult.hasErrors()) { //перед сохранением книги в базу, проверяем, с помощью созданного валидатора, нашу модель на предмет ошибок ? и все ошибки записываются в Binding Result
-            return "addGood"; // если есть ошибки, возвращаем ту-же самую вьюху
-        }
-        this.goodRepository.addGood(good);
-        return "redirect:/allGoods"; //переходим на страницу главную / redirect:/
+/*    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
+//    @PreAuthorize("hasRole('admin')")
+    public String addUser() {
+        return "addUser";
     }
-
-    //    @Override
-    @RequestMapping(value = "deleteGood/{id}", method = RequestMethod.GET) // --- нажали на ссылку
-    @PreAuthorize("hasRole('admin')")
-    public String deleteGood(@PathVariable Integer id) {
-        this.goodRepository.removeGood(id);
-        return "redirect:/";
-    }
-
-    @RequestMapping(value = "byu/{id}", method = RequestMethod.GET) // --- нажали на ссылку
-    @PreAuthorize("isAuthenticated()")
-    public String byuGood(@PathVariable Integer id, @ModelAttribute("good") Good good) {
-        //находим в AllGood и отнимаем то количество, которое купили, если количества недостаточно, выдаем пользователю ошибку
-
-//        goodService.edit(good);
-        //goodRepository.editGood(good);
-        //goodResult = good;
-
-
-
-        //добавляем в корзину новую Good
-
-//        this.goodRepository.removeGood(id);
-        return "redirect:/allGoods";
-    }
-
-//    @RequestMapping(value="/logout", method = RequestMethod.GET)
-//    public String logout(ModelMap model) {
-//        System.out.println("logout string");
-//        return "index";
-//
-//    }
     */
 
+    @RequestMapping(value = "/good.do", method = RequestMethod.POST)
+    public String doAction(@ModelAttribute Good good, @RequestParam String action, Map<String, Object> map) { //BindingResult bindingResult
+        Good goodResult = new Good();
+        switch (action.toLowerCase()) {
+            case "add":
+                goodService.add(good);
+                goodResult = good;
+                break;
+            case "edit":
+                goodService.edit(good);
+                goodResult = good;
+                break;
+            case "delete":
+                goodService.delete(good.getId());
+                goodResult = new Good();
+                break;
+            case "search":
+                Good searchedGood = goodService.getGood(good.getId());
+                goodResult = searchedGood != null ? searchedGood : new Good();
+                break;
+        }
+        map.put("good", goodResult);
+        map.put("goodList", goodService.getAllGood());
+        return "admin";
+    }
+
+    @RequestMapping(value = "/buy", method = RequestMethod.GET)
+//    @PreAuthorize("isAuthenticated()")
+    public String byuStart(Map<String, Object> map) {
+        map.put("goodList", goodService.getAllGood());
+        return "buy";
+    }
+
+
+    @RequestMapping(value = "buytest", method = RequestMethod.POST)
+    public String byuGoodTest(HttpServletRequest req) {
+        System.out.println("here is my string: " + req.getParameter("mystring"));
+        return "buy";
+    }
+
+
+    @RequestMapping(value = "buy", method = RequestMethod.POST)
+//    @PreAuthorize("isAuthenticated()")
+    public String byuGood(Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
+
+        int amount = Integer.parseInt(req.getParameter("amount"));
+        int goodId = Integer.parseInt(req.getParameter("good"));
+
+        HttpSession session = req.getSession();
+        Map<Good, Integer> purchase =  new LinkedHashMap<Good, Integer>();
+        Boolean createdNewPurchase = true;
+        Enumeration e = session.getAttributeNames();
+        while (e.hasMoreElements()) {
+            String nameSessionAtribute = (String) e.nextElement();
+            if (nameSessionAtribute.equals("goodInBasket")) {
+                createdNewPurchase = false;
+                purchase = (Map) session.getAttribute("goodInBasket");
+            }
+        }
+        if (createdNewPurchase = true) {
+            Map<Good, Integer> inPurchase = new HashMap<Good, Integer>();
+            session.setAttribute("goodInBasket", purchase);
+        }
+
+        int oldAmount = -1;
+        Good key = null;
+        for (Map.Entry<Good, Integer> entry : purchase.entrySet()) {
+            if(entry.getKey().getId().equals(goodId)) {
+                oldAmount = entry.getValue();
+                key = entry.getKey();
+
+            }
+        }
+        if(oldAmount != -1) {
+            purchase.put(key, oldAmount + amount);
+
+        } else {
+            purchase.put(goodService.getGood(goodId), amount);
+        }
+
+        Good goodInStore = goodService.getGood(goodId);
+        goodInStore.setAmount(goodInStore.getAmount() - amount);
+        goodService.edit(goodInStore);
+
+        map.put("goodList", goodService.getAllGood());
+        req.setAttribute("goodInBasket", purchase);
+
+        return "buy";
+    }
 }

@@ -8,17 +8,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//    @Repository
-//    @Transactional
+    @Repository
+    @Transactional
     public class UserRepository {
 //
-//        @Autowired
-//        private SessionFactory sessionFactory;
+        @Autowired
+        private SessionFactory sessionFactory;
 //
-//       public void addUser(User user) {
+       public void addUser(User user) {
 //
-//           this.sessionFactory.getCurrentSession().save(user);
-//        }
+           this.sessionFactory.getCurrentSession().save(user);
+        }
 //
 //        public List<User> listAll() {
 //            return this.sessionFactory.getCurrentSession().createQuery("from User").list();
