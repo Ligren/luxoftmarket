@@ -92,7 +92,7 @@ public class GoodController {
                 break;
             case "delete":
                 goodService.delete(good.getId());
-                goodResult = new Good();
+//                goodResult = new Good();
                 break;
             case "search":
                 Good searchedGood = goodService.getGood(good.getId());
@@ -137,8 +137,7 @@ public class GoodController {
                 purchase = (Map) session.getAttribute("goodInBasket");
             }
         }
-        if (createdNewPurchase = true) {
-            Map<Good, Integer> inPurchase = new HashMap<Good, Integer>();
+        if (createdNewPurchase == true) {
             session.setAttribute("goodInBasket", purchase);
         }
 
