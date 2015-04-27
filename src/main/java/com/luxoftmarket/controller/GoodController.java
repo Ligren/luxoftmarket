@@ -113,13 +113,6 @@ public class GoodController {
     }
 
 
-    @RequestMapping(value = "buytest", method = RequestMethod.POST)
-    public String byuGoodTest(HttpServletRequest req) {
-        System.out.println("here is my string: " + req.getParameter("mystring"));
-        return "buy";
-    }
-
-
     @RequestMapping(value = "buy", method = RequestMethod.POST)
 //    @PreAuthorize("isAuthenticated()")
     public String byuGood(Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
