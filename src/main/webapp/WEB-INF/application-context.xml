@@ -15,10 +15,10 @@
        <!--<context:property-placeholder location="classpath:jdbc.properties" system-properties-mode="ENVIRONMENT"/>-->
 
        <!--SQL -->
-       <!--<context:property-placeholder location="classpath:jdbc.properties" />-->
+       <context:property-placeholder location="classpath:jdbcMySQL.properties" />
 
        <!-- H2 -->
-       <context:property-placeholder location="classpath:jdbcH2.properties" />
+       <!--<context:property-placeholder location="classpath:jdbcH2.properties" />-->
 
        <!-- Необходимо добавить component-scan для всех бинов, которые создаются аннотациями (например GoodRepository) -->
        <!-- теперь бин репозитория будет доступен в контексте приложения -->
@@ -70,7 +70,7 @@
                                    UTF-8
                             </prop>
                             <!--  Automatically create and drop the schema in our memory db -->
-                            <prop key="hibernate.hbm2ddl.auto">create</prop>
+                            <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
                             <!--http://stackoverflow.com/questions/438146/hibernate-hbm2ddl-auto-possible-values-and-what-they-do-->
                      </props>
               </property>

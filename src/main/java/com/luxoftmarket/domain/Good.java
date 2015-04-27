@@ -2,7 +2,6 @@ package com.luxoftmarket.domain;
 
 import javax.persistence.*;
 
-// class model
 @Entity
 @Table(name = "goods")
 public class Good {

@@ -29,6 +29,8 @@ package com.luxoftmarket.controller;
 
 import com.luxoftmarket.domain.Good;
 import com.luxoftmarket.service.IGoodService;
+import com.luxoftmarket.service.IUserService;
+import com.luxoftmarket.validation.GoodValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,8 +48,13 @@ import java.util.Map;
 @Controller
 public class GoodController {
 
+
+
     @Autowired
     private IGoodService goodService;
+    @Autowired
+    private IUserService userService;
+    private GoodValidator goodValidator;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)//при заходе на стартовую страницу
     public String index() {
@@ -60,6 +67,7 @@ public class GoodController {
         Good good = new Good();
         map.put("good", good);
         map.put("goodList", goodService.getAllGood());
+        map.put("userList", userService.getAllUser());
         return "admin";
     }
 

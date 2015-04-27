@@ -1,3 +1,7 @@
+/*
+In Service layer must be business logic, But, I have not any time to implements her there.
+ */
+
 package com.luxoftmarket.service.impl;
 
 import com.luxoftmarket.dao.IGoodDao;

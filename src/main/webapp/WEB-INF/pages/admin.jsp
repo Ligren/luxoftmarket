@@ -33,6 +33,13 @@
         </table>
 
     </form:form>
+
+    <c:choose>
+    <c:when test="${empty goodList}">
+        <h2>Товаров в магазине нет, их необходимо добавить.</h2>
+    </c:when>
+    <c:otherwise>
+
     <br border="1">
     <table class="good-list-table">
         <tr>
@@ -53,5 +60,38 @@
         </c:forEach>
 
     </table>
+    </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+    <c:when test="${empty userList}">
+        <h2>Нет зарегистрированных пользователей.</h2>
+    </c:when>
+    <c:otherwise>
+        <h2>Зарегистрированные пользователи:</h2>
+    <table class="good-list-table">
+        <tr>
+            <th>ID</th>
+            <th>Nick</th>
+            <th>Email</th>
+            <th>Password</th>
+        </tr>
+
+        <c:forEach items="${userList}" var="user">
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.nick}</td>
+                <td>${user.email}</td>
+                <td>${user.password}</td>
+            </tr>
+
+        </c:forEach>
+
+    </table>
+    </c:otherwise>
+    </c:choose>
+
+
+
     <a href="buy">Приступить к покупкам</a>
 </t:template>

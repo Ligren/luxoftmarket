@@ -20,6 +20,14 @@ public class User {
         @Column(name = "user_email")
         private String email;
 
+        public User() {}
+
+        public User(String nick, String password, String email) {
+                this.nick = nick;
+                this.password = password;
+                this.email = email;
+        }
+
         public Integer getId() { return id; }
 
         public void setId(Integer id) { this.id = id; }

@@ -26,18 +26,19 @@
     пользователи. Зарегистрируйтеь пожалуйста.
     Мы занимаемся тем что продаем прекрасные тапки для Всех, но наши тапки могут покупать только зарегистрированные
     пользователи. Зарегистрируйтеь пожалуйста.
-    </body>
+
+    </body><br>
 
     <sec:authorize access="isAnonymous()">
-        <a href="addUser">Регистрация</a>
+        <a href="addUser">Регистрация</a><br>
     </sec:authorize>
 
     <%--<sec:authorize access="isAuthenticated()">--%>
-    <a href="buy">Приступить к покупкам (админу тоже можно)</a>
+    <a href="buy">Приступить к покупкам (админу тоже можно)</a><br>
     <%--</sec:authorize>--%>
 
     <%--<sec:authorize access="hasRole('admin')">--%>
-    <td><a href="admin">В кабинет админа</a></td>
+    <td><a href="admin">В кабинет админа</a></td><br>
     <%--</sec:authorize>--%>
 
 

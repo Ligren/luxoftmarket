@@ -10,6 +10,7 @@
     <meta charset="utf-8">
     <link href="<c:url value="/resources/c/main.css" />" rel="stylesheet">
     <script src="<c:url value="/resources/s/goodsUtil.js" />"></script>
+        <script src="<c:url value="/resources/s/clock.js" />"></script>
 
     <title>Luxoft forever !</title>
 
@@ -21,12 +22,18 @@
             </p>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
-            <a href="/j_spring_security_logout">Выход</a>
+            <a href="/j_spring_security_logout">Выход</a><br>
+            <%--<spring:message code="user.logged"/>:--%>
+            Вошли как: <sec:authentication property="name"/><br>
+            Права: <sec:authentication property="authorities"/><br>
         </sec:authorize>
     </div>
 
 </head>
 <body>
+
+<div id="clock"></div>
+
 <div class="content">
     <h1>Супер магазин</h1>
     <jsp:doBody/>
