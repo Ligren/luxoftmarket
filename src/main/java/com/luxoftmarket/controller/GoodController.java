@@ -138,7 +138,7 @@ public class GoodController {
                 purchase = (Map) session.getAttribute("goodInBasket");
             }
         }
-        if (createdNewPurchase == true) {
+        if (createdNewPurchase) {
             session.setAttribute("goodInBasket", purchase);
         }
 
