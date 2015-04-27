@@ -80,7 +80,7 @@ public class GoodController {
 
     @RequestMapping(value = "/good.do", method = RequestMethod.POST)
     public String doAction(@ModelAttribute Good good, @RequestParam String action, Map<String, Object> map) { //BindingResult bindingResult
-        Good goodResult = new Good();
+//        Good goodResult = new Good();
         switch (action.toLowerCase()) {
             case "add":
                 goodService.add(good);
@@ -96,10 +96,11 @@ public class GoodController {
                 break;
             case "search":
                 Good searchedGood = goodService.getGood(good.getId());
-                goodResult = searchedGood != null ? searchedGood : new Good();
+                map.put("good", searchedGood != null ? searchedGood : new Good());
+
                 break;
         }
-        map.put("good", goodResult);
+//        map.put("good", goodResult);
         map.put("goodList", goodService.getAllGood());
         return "admin";
     }
