@@ -64,8 +64,8 @@ public class GoodController {
     @RequestMapping(value = "/admin")
 //    @PreAuthorize("hasRole('admin')")
     public String setupForm(Map<String, Object> map) {
-        Good good = new Good();
-        map.put("good", good);
+//        Good good = new Good();
+//        map.put("good", good);
         map.put("goodList", goodService.getAllGood());
         map.put("userList", userService.getAllUser());
         return "admin";
