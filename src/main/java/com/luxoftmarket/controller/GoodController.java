@@ -84,11 +84,11 @@ public class GoodController {
         switch (action.toLowerCase()) {
             case "add":
                 goodService.add(good);
-                goodResult = good;
+//                goodResult = good;
                 break;
             case "edit":
                 goodService.edit(good);
-                goodResult = good;
+//                goodResult = good;
                 break;
             case "delete":
                 goodService.delete(good.getId());
