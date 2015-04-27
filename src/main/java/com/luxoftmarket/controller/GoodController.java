@@ -64,8 +64,8 @@ public class GoodController {
     @RequestMapping(value = "/admin")
 //    @PreAuthorize("hasRole('admin')")
     public String setupForm(Map<String, Object> map) {
-//        Good good = new Good();
-//        map.put("good", good);
+        Good good = new Good();
+        map.put("good", good);
         map.put("goodList", goodService.getAllGood());
         map.put("userList", userService.getAllUser());
         return "admin";
@@ -94,7 +94,7 @@ public class GoodController {
                 goodService.delete(good.getId());
 //                goodResult = new Good();
                 break;
-            case "search":
+            case "search by id":
                 Good searchedGood = goodService.getGood(good.getId());
                 map.put("good", searchedGood != null ? searchedGood : new Good());
 

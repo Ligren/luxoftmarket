@@ -3,6 +3,7 @@
 
 <t:template>
     <h1>Товары</h1>
+    <%--<form:form action="good.do" method="POST">--%>
     <form:form action="good.do" method="POST" commandName="good">
         <table class="good-list-table">
             <tr>
@@ -27,7 +28,7 @@
                     <input type="submit" name="action" value="Add"/>
                     <input type="submit" name="action" value="Edit"/>
                     <input type="submit" name="action" value="Delete"/>
-                    <input type="submit" name="action" value="Search"/>
+                    <input type="submit" name="action" value="Search by id"/>
                 </td>
             </tr>
         </table>
