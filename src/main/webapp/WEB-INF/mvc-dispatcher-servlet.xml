@@ -91,14 +91,14 @@
           class="org.springframework.security.authentication.ProviderManager">
         <property name="providers">
             <list>
-                <ref local="daoAuthenticationProvider"/>
+                <ref bean="daoAuthenticationProvider"/>
             </list>
         </property>
     </bean>
 
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="userDetailsService">
-            <security:password-encoder hash="md5"></security:password-encoder>
+            <!--<security:password-encoder hash="md5"></security:password-encoder>-->
         </security:authentication-provider>
     </security:authentication-manager>
 
