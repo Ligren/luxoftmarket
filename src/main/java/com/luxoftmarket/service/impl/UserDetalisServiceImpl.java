@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service("userDetailsService")
-public class UserDetalisServiceImpl {//implements UserDetailsService {
+public class UserDetalisServiceImpl implements UserDetailsService {
 
-/*    @Autowired
+    @Autowired
     private IUserDaoSec userDao;
 
     @Override
@@ -50,6 +50,6 @@ public class UserDetalisServiceImpl {//implements UserDetailsService {
 
     }
 
-*/
+
 }
 

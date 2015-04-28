@@ -11,7 +11,7 @@
         <org.springframework.version>4.1.1.RELEASE</org.springframework.version>
         <tomcat.version>7.0.59</tomcat.version>
         <servlet.version>3.0.1</servlet.version>
-        <spring.security.version>3.2.5.RELEASE</spring.security.version>
+        <spring.security.version>3.2.6.RELEASE</spring.security.version>
   </properties>
 
     <dependencies>
