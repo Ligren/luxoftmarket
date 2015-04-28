@@ -29,6 +29,8 @@ public class User {
                 inverseJoinColumns = @JoinColumn(name = "id_role"))
         private List<Role> roles;
 
+
+
         @Enumerated(EnumType.STRING)
         private UserStatus status;
 
@@ -57,5 +59,13 @@ public class User {
         public String getEmail() { return email; }
 
         public void setEmail(String email) { this.email = email; }
+
+        public UserStatus getStatus() { return status; }
+
+        public void setStatus(UserStatus status) { this.status = status; }
+
+        public List<Role> getRoles() { return roles; }
+
+        public void setRoles(List<Role> roles) { this.roles = roles; }
 
 }

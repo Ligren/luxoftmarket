@@ -4,6 +4,7 @@
 <t:template>
     <h1>Товары</h1>
     <%--<form:form action="good.do" method="POST">--%>
+    <%--<form:form action="good.do" method="POST" commandName="good">--%>
     <form:form action="good.do" method="POST" commandName="good">
         <table class="good-list-table">
             <tr>
