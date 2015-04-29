@@ -4,11 +4,12 @@
 <t:template>
     <h1>Товары</h1>
     <%--<form:form action="good.do" method="POST">--%>
-    <%--<form:form action="good.do" method="POST" commandName="good">--%>
+    <%--<form:form action="good.do" method="POST" >--%>
     <form:form action="good.do" method="POST" commandName="good">
         <table class="good-list-table">
             <tr>
                 <td>Id (autoincrement)</td>
+                <%--<input type="text" name="amount" size="3" required>--%>
                 <td><form:input path="id" type="number"/></td>
             </tr>
             <tr>
@@ -29,7 +30,7 @@
                     <input type="submit" name="action" value="Add"/>
                     <input type="submit" name="action" value="Edit"/>
                     <input type="submit" name="action" value="Delete"/>
-                    <input type="submit" name="action" value="Search by id"/>
+                    <input type="submit" name="action" value="Search (id or name)"/>
                 </td>
             </tr>
         </table>

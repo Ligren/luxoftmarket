@@ -8,11 +8,11 @@ import javax.persistence.*;
 @Table(name = "roles")
 public class Role {
     @Id
-    @Column(name  = "id_role")
+    @Column(name  = "id_role", nullable = false, length = 10)
     @GeneratedValue
     private Integer id;
 
-    @Column(name = "role_name")
+    @Column(name = "role_name", nullable = false, length = 50)
     private String name;
 
     @ManyToMany(mappedBy = "roles")
@@ -23,6 +23,10 @@ public class Role {
     public Role(String name, List users) {
         this.name = name;
         this.users = users;
+    }
+
+    public Role(String name) {
+        this.name = name;
     }
 
     public Integer getId() {

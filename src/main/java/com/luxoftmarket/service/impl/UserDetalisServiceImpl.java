@@ -1,12 +1,11 @@
 package com.luxoftmarket.service.impl;
 
-import com.luxoftmarket.dao.IUserDaoSec;
+import com.luxoftmarket.dao.IUserDao;
 import com.luxoftmarket.domain.Role;
 import com.luxoftmarket.domain.User;
 import com.luxoftmarket.domain.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +20,7 @@ import java.util.Collection;
 public class UserDetalisServiceImpl implements UserDetailsService {
 
     @Autowired
-    private IUserDaoSec userDao;
+    private IUserDao userDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -38,7 +37,6 @@ public class UserDetalisServiceImpl implements UserDetailsService {
             // Let`s populate user roles
             Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             for (Role role : user.getRoles()) {
-//                authorities.add(new GrantedAuthorityImpl(role.getName()));
                 authorities.add(new SimpleGrantedAuthority(role.getName()));
             }
 
@@ -49,9 +47,6 @@ public class UserDetalisServiceImpl implements UserDetailsService {
         } else {
             throw new UsernameNotFoundException("User not fount !!!");
         }
-
     }
-
-
 }
 

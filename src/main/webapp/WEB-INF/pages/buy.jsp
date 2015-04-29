@@ -4,10 +4,22 @@
 
 
 <t:template>
-    <%--<link href="<c:url value="/resources/c/main.css" />" rel="stylesheet">--%>
+
+    <sec:authorize access="hasRole('user')">
+        <h3>Поздравляю Вас, Вы зареигстрировалилсь как User. Теперь Вы можете попасть в кабинет админа,<br>
+            Именно там находится заветный CRUD + Search<br>
+            login: "Vladyslav" password: "bestDeveloper" :) <br><br>
+            А тут Вы пока можете отложить товар в корзину!
+        </h3>
+    </sec:authorize>
+
     <c:choose>
         <c:when test="${empty goodList}">
-            <h2>Необходимо сначала Администратору (admin password: koala) добавить товары</h2>
+            <h3>
+                Необходимо сначала Администратору добавить товары<br>
+                login: Vladyslav<br>
+                password: bestDeveloper
+            </h3>
         </c:when>
         <c:otherwise>
             <table class="stylesheet.good-list-table">
@@ -33,29 +45,41 @@
                 </c:forEach>
             </table>
 
-            <h3> Товары, которые уже находятся в корзине</h3>
-            <br border="1">
-            <table class="good-list-table">
-                <tr>
-                    <th>ID</th>
-                    <th>Товар</th>
-                    <th>Цена</th>
-                    <th>Количество</th>
-                </tr>
-                <c:forEach items="${goodInBasket}" var="entry">
-                    <tr>
-                        <td>${entry.key.id}</td>
-                        <td>${entry.key.name}</td>
-                        <td>${entry.key.price}</td>
-                        <td>${entry.value}</td>
-                    </tr>
-                </c:forEach>
-            </table>
+            <c:choose>
+                <c:when test="${empty goodInBasket}">
+                    <h2>Ваша корзина пуста, сначала добавьте товар в корзину<br>
+                        предварительно выбравши количество товара, и нажавши<br>
+                        на кнопку Buy
+                    </h2>
+                </c:when>
+                <c:otherwise>
+
+                    <h3> Товары, которые уже находятся в корзине</h3>
+                    <br border="1">
+                    <table class="good-list-table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Товар</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                        </tr>
+                        <c:forEach items="${goodInBasket}" var="entry">
+                            <tr>
+                                <td>${entry.key.id}</td>
+                                <td>${entry.key.name}</td>
+                                <td>${entry.key.price}</td>
+                                <td>${entry.value}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+
         </c:otherwise>
     </c:choose>
 
-    <%--<sec:authorize access="hasRole('admin')">--%>
-    <td><a href="admin">В кабинет админа</a></td>
-    <%--</sec:authorize>--%>
+    <sec:authorize access="hasRole('admin')">
+        <td><a href="admin">В кабинет админа</a></td>
+    </sec:authorize>
 
 </t:template>

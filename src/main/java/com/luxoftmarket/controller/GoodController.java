@@ -27,11 +27,16 @@ session http://www.java2s.com/Code/JavaAPI/javax.servlet.http/HttpSessionsetAttr
 
 package com.luxoftmarket.controller;
 
+import com.luxoftmarket.dao.IRoleDao;
+import com.luxoftmarket.dao.IUserDao;
 import com.luxoftmarket.domain.Good;
+import com.luxoftmarket.domain.Role;
+import com.luxoftmarket.domain.User;
+import com.luxoftmarket.domain.UserStatus;
 import com.luxoftmarket.service.IGoodService;
-import com.luxoftmarket.service.IUserService;
 import com.luxoftmarket.validation.GoodValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,68 +45,74 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class GoodController {
 
 
-
     @Autowired
     private IGoodService goodService;
     @Autowired
-    private IUserService userService;
     private GoodValidator goodValidator;
+    @Autowired
+    IUserDao userDao;
+    @Autowired
+    IRoleDao roleDao;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)//при заходе на стартовую страницу
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
+        if (userDao.findUser(1) == null) {
+            roleDao.addRole(new Role("administrator"));
+            roleDao.addRole(new Role("user"));
+            roleDao.addRole(new Role("tester"));
+            List<Role> role = new ArrayList<Role>(3);
+            role.add(roleDao.findRole(1));
+            role.add(roleDao.findRole(2));
+            role.add(roleDao.findRole(3));
+            userDao.addUser(new User("Vladyslav", new BCryptPasswordEncoder().encode("bestDeveloper"), "sadkoua@gmail.com", role, UserStatus.ACTIVE));
+            Random rand = new Random();
+            for (int i = 1; i < 9; i++) {
+                goodService.add(new Good(i, "Товар №" + (rand.nextInt(99) + 1), rand.nextInt(99) + 1, rand.nextInt(99) + 1));
+            }
+        }
         return "index";
     }
 
+
     @RequestMapping(value = "/admin")
 //    @PreAuthorize("hasRole('admin')")
-    public String setupForm(Map<String, Object> map) {
-        Good good = new Good();
-        map.put("good", good);
+    public String setupForm(Map<String, Object> map, @ModelAttribute Good good) {
         map.put("goodList", goodService.getAllGood());
-        map.put("userList", userService.getAllUser());
+        map.put("userList", userDao.getAllUsers());
         return "admin";
     }
 
-/*    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
-//    @PreAuthorize("hasRole('admin')")
-    public String addUser() {
-        return "addUser";
-    }
-    */
-
     @RequestMapping(value = "/good.do", method = RequestMethod.POST)
     public String doAction(@ModelAttribute Good good, @RequestParam String action, Map<String, Object> map) { //BindingResult bindingResult
-//        Good goodResult = new Good();
         switch (action.toLowerCase()) {
             case "add":
-                goodService.add(good);
-//                goodResult = good;
+                if(good.getName() != null) goodService.add(good);
                 break;
             case "edit":
-                goodService.edit(good);
-//                goodResult = good;
+                if(good.getId() != null & goodService.getGood(good.getId()) != null) goodService.edit(good);
                 break;
             case "delete":
-                goodService.delete(good.getId());
-//                goodResult = new Good();
+                if(good.getId() != null & goodService.getGood(good.getId()) != null) goodService.delete(good.getId());
                 break;
-            case "search by id":
-                Good searchedGood = goodService.getGood(good.getId());
-                map.put("good", searchedGood != null ? searchedGood : new Good());
+            case "search (id or name)":
+                Good searchedGood = null;
+
+                if(good.getId() != null) searchedGood = goodService.getGood(good.getId());
+
+                if (searchedGood == null & good.getName() != null) searchedGood = goodService.findGoodByName(good.getName());
+
+                if (searchedGood != null) map.put("good", searchedGood);
 
                 break;
         }
-//        map.put("good", goodResult);
         map.put("goodList", goodService.getAllGood());
+        map.put("userList", userDao.getAllUsers());
         return "admin";
     }
 
@@ -121,7 +132,7 @@ public class GoodController {
         int goodId = Integer.parseInt(req.getParameter("good"));
 
         HttpSession session = req.getSession();
-        Map<Good, Integer> purchase =  new LinkedHashMap<Good, Integer>();
+        Map<Good, Integer> purchase = new LinkedHashMap<Good, Integer>();
         Boolean createdNewPurchase = true;
         Enumeration e = session.getAttributeNames();
         while (e.hasMoreElements()) {
@@ -138,13 +149,13 @@ public class GoodController {
         int oldAmount = -1;
         Good key = null;
         for (Map.Entry<Good, Integer> entry : purchase.entrySet()) {
-            if(entry.getKey().getId().equals(goodId)) {
+            if (entry.getKey().getId().equals(goodId)) {
                 oldAmount = entry.getValue();
                 key = entry.getKey();
 
             }
         }
-        if(oldAmount != -1) {
+        if (oldAmount != -1) {
             purchase.put(key, oldAmount + amount);
 
         } else {

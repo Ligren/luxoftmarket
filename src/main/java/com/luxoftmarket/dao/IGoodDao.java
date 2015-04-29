@@ -10,4 +10,5 @@ public interface IGoodDao {
     void delete(int id);
     Good getGood(int id);
     List getAllGood();
+    Good findGoodByName(String goodname);
 }

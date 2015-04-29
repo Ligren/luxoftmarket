@@ -2,9 +2,12 @@ package com.luxoftmarket.dao.impl;
 
 import com.luxoftmarket.domain.Good;
 import com.luxoftmarket.dao.IGoodDao;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -37,5 +40,13 @@ public class GoodDaoImpl implements IGoodDao {
     @Override
     public List getAllGood() {
         return sessionFactory.getCurrentSession().createQuery("from Good").list();
+    }
+
+    @Override
+    @Transactional
+    public Good findGoodByName(String goodname) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Good.class);
+        criteria.add(Restrictions.eq("name", goodname));
+        return (Good) criteria.uniqueResult();
     }
 }

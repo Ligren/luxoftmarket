@@ -43,4 +43,9 @@ public class GoodServiceImpl implements IGoodService {
     public List getAllGood() {
         return goodDao.getAllGood();
     }
+
+    @Transactional
+    public Good findGoodByName(String goodname) {
+        return goodDao.findGoodByName(goodname);
+    }
 }

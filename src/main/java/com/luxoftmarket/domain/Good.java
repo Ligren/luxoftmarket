@@ -7,22 +7,23 @@ import javax.persistence.*;
 public class Good {
 
     @Id
-    @Column(name  = "id_good")
+    @Column(name  = "id_good", nullable = false, length = 8)
     @GeneratedValue
     private Integer id;
 
-    @Column(name = "good_name")
+    @Column(name = "good_name", nullable = false, length = 150)
     private String name;
 
-    @Column(name = "good_price")
+    @Column(name = "good_price", nullable = false, length = 8)
     private Integer price;
 
-    @Column(name = "good_amount")
+    @Column(name = "good_amount", nullable = true, length = 8)
     private Integer amount;
 
     public Good() {}
 
-    public Good(String name, Integer price, Integer amount) {
+    public Good(Integer id, String name, Integer price, Integer amount) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.amount = amount;

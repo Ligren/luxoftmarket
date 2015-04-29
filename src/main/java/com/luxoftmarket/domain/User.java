@@ -9,28 +9,26 @@ import com.luxoftmarket.domain.Role;
 public class User {
 
         @Id
-        @Column(name  = "id_user")
-        @GeneratedValue
+        @Column(name  = "id_user", nullable = false, length = 5)
+        @GeneratedValue(strategy = GenerationType.AUTO)
         private Integer id;
 
-        @Column(name = "user_name")
+        @Column(name = "user_name", nullable = true, length = 50)
         private String nick;
 
-        @Column(name = "user_password")
+        @Column(name = "user_password", nullable = true, length = 200)
         private String password;
 
-        @Column(name = "user_email")
+        @Column(name = "user_email", nullable = true, length = 50)
         private String email;
 
-//        @Column(name = "user_roles")
         @ManyToMany
         @JoinTable(name="UsersAndRoles",
                 joinColumns = @JoinColumn(name="id_user"),
                 inverseJoinColumns = @JoinColumn(name = "id_role"))
         private List<Role> roles;
 
-
-
+        @Column(name = "status", nullable = false, length = 15)
         @Enumerated(EnumType.STRING)
         private UserStatus status;
 

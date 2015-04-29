@@ -52,8 +52,7 @@
         <security:remember-me/>
     </security:http>
 
-    <!-- нужен для шифрования пароля -->
-    <!--<bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>-->
+
 
 
 
@@ -82,6 +81,15 @@
         <!--</security:authentication-provider>-->
     <!--</security:authentication-manager>-->
 
+    <!-- нужен для шифрования пароля -->
+    <!--<bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>-->
+    <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+ <!--<bean id="authProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">-->
+        <!--<property name="userDetailsService" ref="userDetailsService" />-->
+        <!--<property name="passwordEncoder" ref="encoder" />-->
+    <!--</bean>-->
+
 
     <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
        <property name="userDetailsService" ref="userDetailsService"></property>
@@ -99,6 +107,8 @@
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="userDetailsService">
             <!--<security:password-encoder hash="md5"></security:password-encoder>-->
+            <security:password-encoder ref="encoder"/>
+        <!--</security:password-encoder>-->
         </security:authentication-provider>
     </security:authentication-manager>
 
