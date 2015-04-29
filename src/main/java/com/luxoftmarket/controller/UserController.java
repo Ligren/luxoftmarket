@@ -42,11 +42,10 @@ public class UserController {
         return "addUser";
     }
 
-
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
 //    @PreAuthorize("hasRole('admin')")
-    public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult, HttpServletRequest req) {
-        HttpSession session = req.getSession();
+    public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
+//        HttpSession session = req.getSession();
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         List<Role> role = new ArrayList<Role>(1);
