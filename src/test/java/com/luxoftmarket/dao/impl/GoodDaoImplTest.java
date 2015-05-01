@@ -180,6 +180,7 @@ tempSession.delete(getGood(id));
         assertSame(toBeReturned, testList);
     }
 
+
     @Test
     public void testFindGoodByName() throws Exception {
 /*        public Good findGoodByName(String goodname) {
