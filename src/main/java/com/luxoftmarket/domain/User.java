@@ -1,12 +1,13 @@
 package com.luxoftmarket.domain;
 // I`m using Many to many mapping since Many users can have many roles and many roles can be assigned to many users.
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import com.luxoftmarket.domain.Role;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
         @Id
         @Column(name  = "id_user", nullable = false, length = 5)

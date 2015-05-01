@@ -1,10 +1,11 @@
 package com.luxoftmarket.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "goods")
-public class Good {
+public class Good implements Serializable {
 
     @Id
     @Column(name  = "id_good", nullable = false, length = 8)
