@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service("userDetailsService")
-public class UserDetalisServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private IUserDao userDao;
@@ -30,7 +30,7 @@ public class UserDetalisServiceImpl implements UserDetailsService {
             String password = user.getPassword();
             // additional information on the security object
             boolean enabled = user.getStatus().equals(UserStatus.ACTIVE);
-            boolean accontNonExpired = user.getStatus().equals(UserStatus.ACTIVE);
+            boolean accountNonExpired = user.getStatus().equals(UserStatus.ACTIVE);
             boolean credentialsNonExpired = user.getStatus().equals(UserStatus.ACTIVE);
             boolean accontNonLocked = user.getStatus().equals(UserStatus.ACTIVE);
 
@@ -42,7 +42,7 @@ public class UserDetalisServiceImpl implements UserDetailsService {
 
             //Now lte`s create Spring Security User object
             org.springframework.security.core.userdetails.User securityUser = new
-                    org.springframework.security.core.userdetails.User(username, password, enabled, accontNonExpired, credentialsNonExpired, accontNonLocked, authorities);
+                    org.springframework.security.core.userdetails.User(username, password, enabled, accountNonExpired, credentialsNonExpired, accontNonLocked, authorities);
             return securityUser;
         } else {
             throw new UsernameNotFoundException("User not fount !!!");
