@@ -27,36 +27,45 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private UserValidator userValidator;
+    //    private UserValidator userValidator;
     private Logger log = LoggerFactory.getLogger(UserController.class); // 1. Объявляем переменную логгера
 
     @Autowired
     IUserDao userDao;
     @Autowired
     IRoleDao roleDao;
+    @Autowired
+    UserValidator userValidator;
+
 
     @RequestMapping(value = "addUser", method = RequestMethod.GET)
-//    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("isAnonymous()")
     public String addUser() {
         log.info("-----------------------Some object: {we are in the method add User, requestMethod GET}");
         return "addUser";
     }
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
-//    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("isAnonymous()")
     public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
-//        HttpSession session = req.getSession();
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        userValidator.validate(user, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "addUser";
 
-        List<Role> role = new ArrayList<Role>(1);
-        role.add(roleDao.findRole(2));
+        } else {
 
-        user.setRoles(role);
-        user.setStatus(UserStatus.ACTIVE);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        userDao.addUser(user);
+            List<Role> role = new ArrayList<Role>(1);
+            role.add(roleDao.findRole(2)); //set "user" role for user
 
-        return "redirect:/";
+            user.setRoles(role);
+            user.setStatus(UserStatus.ACTIVE);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            userDao.addUser(user);
+
+            return "redirect:/";
+        }
     }
 }

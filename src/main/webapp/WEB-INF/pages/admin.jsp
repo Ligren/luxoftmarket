@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/tags/includes.jsp" %>
 
+
 <t:template>
+
+
     <h1>Товары</h1>
     <%--<form:form action="good.do" method="POST">--%>
     <%--<form:form action="good.do" method="POST" >--%>

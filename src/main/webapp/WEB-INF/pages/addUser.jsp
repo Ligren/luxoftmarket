@@ -18,7 +18,7 @@
                 <td><label for="nick">
                     Ваш ник
                 </label></td>
-                <td><input id="nick" name="nick" type="text" value=""></td>
+                <td><input id="nick" name="nick" type="text" value="" required></td>
                 <td></td>
             </tr>
 
@@ -27,7 +27,7 @@
                     Ваш пароль (мин 6 символов)
                 </label></td>
                 <td><input id="password" name="password" type="password" accept-charset="UTF-8" value="" size="25"
-                           onKeyUp="passValid('registration','password','pass12','submit'),isEqual('registration','password','password2','pass22','submit')">
+                           onKeyUp="passValid('registration','password','pass12','submit'),isEqual('registration','password','password2','pass22','submit')" min="6" required>
                 </td>
                 <td><span id="pass11"><span id="pass12">&nbsp;</span></span></td>
             </tr>
@@ -37,7 +37,7 @@
                     Повторите пароль
                 </label></td>
                 <td><input id="password2" name="password2" type="password" accept-charset="UTF-8" value="" size="25"
-                           onKeyUp="isEqual('form','password','password2','pass22','submit')"></td>
+                           onKeyUp="isEqual('form','password','password2','pass22','submit')" min="6" required></td>
 
                 <td><span id="pass22"></span></td>
             </tr>
@@ -57,5 +57,7 @@
             </tbody>
         </table>
 
+
     </form:form>
+    <form:errors path="nick"></form:errors>
 </t:template>

@@ -38,6 +38,7 @@ import com.luxoftmarket.validation.GoodValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.*;
 
 @Controller
@@ -80,8 +82,8 @@ public class GoodController {
     }
 
 
-    @RequestMapping(value = "/admin")
-//    @PreAuthorize("hasRole('admin')")
+    @RequestMapping(value = {"/admin", "/good.do"}, method = RequestMethod.GET)
+//    @PreAuthorize("hasRole('administrator')")
     public String setupForm(Map<String, Object> map, @ModelAttribute Good good) {
         map.put("goodList", goodService.getAllGood());
         map.put("userList", userDao.getAllUsers());
@@ -89,13 +91,15 @@ public class GoodController {
     }
 
     @RequestMapping(value = "/good.do", method = RequestMethod.POST)
-    public String doAction(@ModelAttribute Good good, @RequestParam String action, Map<String, Object> map) { //BindingResult bindingResult
+    public String doAction(@Valid @ModelAttribute Good good, @RequestParam String action, Map<String, Object> map, BindingResult bindingResult) { //BindingResult bindingResult
+        goodValidator.validate(good, bindingResult);
+        if (bindingResult.hasErrors()) {System.out.println("has errors"); List listError = bindingResult.getAllErrors(); System.out.println("our errors: " + listError.toString()); }
         switch (action.toLowerCase()) {
             case "add":
-                if(good.getName() != null) goodService.add(good);
+                if(!bindingResult.hasErrors()){ goodService.add(good); }
                 break;
             case "edit":
-                if(good.getId() != null & goodService.getGood(good.getId()) != null) goodService.edit(good);
+                if(!bindingResult.hasErrors()) { goodService.edit(good); }
                 break;
             case "delete":
                 if(good.getId() != null & goodService.getGood(good.getId()) != null) goodService.delete(good.getId());

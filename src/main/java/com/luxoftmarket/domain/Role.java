@@ -1,5 +1,7 @@
 package com.luxoftmarket.domain;
 
+import com.sun.istack.internal.NotNull;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,10 +11,12 @@ import javax.persistence.*;
 @Table(name = "roles")
 public class Role implements Serializable {
     @Id
+    @NotNull
     @Column(name  = "id_role", nullable = false, length = 10)
     @GeneratedValue
     private Integer id;
 
+    @NotNull
     @Column(name = "role_name", nullable = false, length = 50)
     private String name;
 

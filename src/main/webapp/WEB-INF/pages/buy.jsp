@@ -4,6 +4,8 @@
 
 
 <t:template>
+    <script src="<c:url value="/resources/s/validate_amount.js" />"></script>
+    <link href="<c:url value="/resources/c/main.css" />" rel="stylesheet">
 
     <sec:authorize access="hasRole('user')">
         <h3>Поздравляю Вас, Вы зареигстрировалилсь как User. Теперь Вы можете попасть в кабинет админа,<br>
@@ -22,7 +24,7 @@
             </h3>
         </c:when>
         <c:otherwise>
-            <table class="stylesheet.good-list-table">
+            <table class="good-list-table">
                 <tr>
                     <th>Название</th>
                     <th>Цена</th>
@@ -33,13 +35,17 @@
                 <c:forEach items="${goodList}" var="good">
 
                     <tr>
-                        <form action="buy" method="POST">
+                        <form name="select_amount_form" method="POST" action="buy" onsubmit="return validate_amount ('amount_required_${good.id}','amount_have_${good.id}' , 'submit');" >
                             <input type="hidden" name="good" value="${good.id}">
                             <td>${good.name}</td>
                             <td>${good.price}</td>
                             <td>${good.amount}</td>
-                            <td><input type="text" name="amount" size="3" required></td>
-                            <td><input type="submit" value="Buy"></td>
+
+                            <input type="hidden" value="${good.amount}" id="amount_have_${good.id}">
+                            <td><input type="number" name="amount" size="3" id="amount_required_${good.id}" min="1" max="${good.amount}"></td>
+                            <%--<td><input type="text" name="amount" size="3" required></td>--%>
+                            <td><input type="submit" value="Buy" id="submit" ></td>
+                            <%--<td><input type="submit" value="Buy" id="submit" disabled = "1" ></td>--%>
                         </form>
                     </tr>
                 </c:forEach>

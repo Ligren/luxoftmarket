@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import com.luxoftmarket.domain.Role;
+import com.sun.istack.internal.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -14,21 +15,25 @@ public class User implements Serializable {
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Integer id;
 
+        @NotNull
         @Column(name = "user_name", nullable = true, length = 50)
         private String nick;
 
+        @NotNull
         @Column(name = "user_password", nullable = true, length = 200)
         private String password;
 
         @Column(name = "user_email", nullable = true, length = 50)
         private String email;
 
+        @NotNull
         @ManyToMany
         @JoinTable(name="UsersAndRoles",
                 joinColumns = @JoinColumn(name="id_user"),
                 inverseJoinColumns = @JoinColumn(name = "id_role"))
         private List<Role> roles;
 
+        @NotNull
         @Column(name = "status", nullable = false, length = 15)
         @Enumerated(EnumType.STRING)
         private UserStatus status;

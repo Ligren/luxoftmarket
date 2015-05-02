@@ -17,10 +17,10 @@ public class GoodValidator implements Validator {//имплементид инт
 
     @Override
     public void validate(Object o, Errors errors) {
-        Good good = (Good) o;
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.good_name", "Обязательно введите имя."); // проверка того что данные значения не пустые
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "required.good_price", "Обязательно введите цену.");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "amount", "required.good_amount", "Обязательно введите кол-во на складе.");
+//        Good good = (Good) o;
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.name", "Обязательно введите имя."); // проверка того что данные значения не пустые
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "required.price", "Обязательно введите цену.");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "amount", "required.amoun", "Обязательно введите кол-во на складе.");
 //    try { new Integer("good.getPrice()"); }catch (NumberFormatException e) { errors.rejectValue("good.getPrice()", "not_true_number", "Введите Именно число!"); }
 //    try { new Integer("good.getAmount()"); }catch (NumberFormatException e) { errors.rejectValue("good.getAmount()", "not_true_number", "Введите Именно число!"); }
 

@@ -34,10 +34,9 @@
         <a href="buy">Приступить к покупкам (админу тоже можно)</a><br>
     </sec:authorize>
 
-    <sec:authorize access="hasRole('administrator')">
-        <td><a href="admin">В кабинет админа</a></td>
-        <br>
-    </sec:authorize>
+    <%--<sec:authorize access="hasRole('administrator')">--%>
+        <a href="admin">В кабинет админа</a><br>
+    <%--</sec:authorize>--%>
 
 
 </t:template>
