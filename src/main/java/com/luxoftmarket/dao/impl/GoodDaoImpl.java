@@ -47,13 +47,8 @@ public class GoodDaoImpl implements IGoodDao {
     @Override
     @Transactional
     public Good findGoodByName(String goodname) {
-/*        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Good.class);
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Good.class);
         criteria.add(Restrictions.eq("name", goodname));
-        return (Good) criteria.uniqueResult();*/
-        Session tempSession = sessionFactory.getCurrentSession();
-        Criteria criteria = tempSession.createCriteria(Good.class);
-        SimpleExpression tempExpression = Restrictions.eq("name", goodname);
-        criteria.add(tempExpression);
         return (Good) criteria.uniqueResult();
     }
 }

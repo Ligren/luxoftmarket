@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Criterion;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
@@ -31,17 +33,27 @@ public class GoodDaoImplTest {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Mock
+    private Session mockSession;
 
     @InjectMocks
     GoodDaoImpl s;
 
+    private Good testGood;
+
+    @Before
+    public void createTestGood() {
+        Good testGood = new Good();
+        this.testGood = testGood;
+    }
+
+    @Before
+    public void doReturnSessionFactory() {
+        doReturn(mockSession).when(sessionFactory).getCurrentSession();
+    }
 
     @Test
     public void testAdd() throws Exception {
-        final Good testGood = new Good();
-        Session mockSession = mock(Session.class, withSettings().serializable());
-
-        doReturn(mockSession).when(sessionFactory).getCurrentSession();
         doReturn(testGood).when(mockSession).save(any(Good.class));
 
         s.add(testGood);
@@ -52,10 +64,6 @@ public class GoodDaoImplTest {
 
     @Test
     public void testEdit() throws Exception {
-        final Good testGood = new Good();
-        Session mockSession = mock(Session.class);
-
-        doReturn(mockSession).when(sessionFactory).getCurrentSession();
         doNothing().when(mockSession).update(any(Good.class));
 
         s.edit(testGood);
@@ -67,10 +75,7 @@ public class GoodDaoImplTest {
     @Test
     public void testDelete() throws Exception {
         GoodDaoImpl testS = spy(s);
-        Good testGood = new Good();
-        Session mockSession = mock(Session.class);
 
-        doReturn(mockSession).when(sessionFactory).getCurrentSession();
         when(testS.getGood(anyInt())).thenReturn(testGood);
         doNothing().when(mockSession).delete(testGood);
 
@@ -84,27 +89,23 @@ public class GoodDaoImplTest {
 
     @Test
     public void testGetGood() throws Exception {
-
-        Good toBeReturned = new Good();
-        Session mockSession = mock(Session.class);
         doReturn(mockSession).when(sessionFactory).getCurrentSession();
-        doReturn(toBeReturned).when(mockSession).get(same(Good.class), anyInt());
+        doReturn(testGood).when(mockSession).get(same(Good.class), anyInt());
 
-        Good testGood = s.getGood(5);
+        Good testGood2 = s.getGood(5);
 
         verify(sessionFactory).getCurrentSession();
         verify(mockSession).get(Good.class, 5);
 
-        assertSame(toBeReturned, testGood);
+        assertEquals(testGood2, testGood);
     }
 
     @Test
     public void testGetAllGood() throws Exception {
         List toBeReturned = Arrays.asList(new Good());
-        Session mockSession = mock(Session.class);
+
         Query mockQuery = mock(Query.class);
 
-        doReturn(mockSession).when(sessionFactory).getCurrentSession();
         doReturn(mockQuery).when(mockSession).createQuery("from Good");
         doReturn(toBeReturned).when(mockQuery).list();
 
@@ -117,27 +118,22 @@ public class GoodDaoImplTest {
         assertSame(toBeReturned, testList);
     }
 
-
     @Test
     public void testFindGoodByName() throws Exception {
-        Good toBeReturned = new Good();
-        Session mockSession = mock(Session.class);
         Criteria mockCriteria = mock(Criteria.class);
         Criterion mockCriterion = mock(Criterion.class);
 
-        doReturn(mockSession).when(sessionFactory).getCurrentSession();
         doReturn(mockCriteria).when(mockSession).createCriteria(Good.class);
-        doReturn(toBeReturned).when(mockCriteria).uniqueResult();
+        doReturn(testGood).when(mockCriteria).uniqueResult();
         doReturn(mockCriteria).when(mockCriteria).add(mockCriterion);
 
-        Good testGood = s.findGoodByName("bobrik");
+        Good testGood2 = s.findGoodByName("");
 
         verify(sessionFactory).getCurrentSession();
         verify(mockSession).createCriteria(eq(Good.class));
         verify(mockCriteria).uniqueResult();
         verify(mockCriteria).uniqueResult();
 
-        assertSame(toBeReturned, testGood);
-
+        assertSame(testGood, testGood2);
     }
 }
