@@ -3,6 +3,7 @@ package com.luxoftmarket.domain;
 import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -16,6 +17,7 @@ public class Good implements Serializable {
     private Integer id;
 
     @NotNull
+    @Size(min=1,max=150)
     @Column(name = "good_name", nullable = false, length = 150)
     private String name;
 

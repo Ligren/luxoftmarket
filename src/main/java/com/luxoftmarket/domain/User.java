@@ -1,6 +1,7 @@
 package com.luxoftmarket.domain;
 // I`m using Many to many mapping since Many users can have many roles and many roles can be assigned to many users.
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 import com.luxoftmarket.domain.Role;
@@ -16,6 +17,7 @@ public class User implements Serializable {
         private Integer id;
 
         @NotNull
+        @Size(min=1,max=50)
         @Column(name = "user_name", nullable = true, length = 50)
         private String nick;
 

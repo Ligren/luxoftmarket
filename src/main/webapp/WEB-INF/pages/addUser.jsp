@@ -19,6 +19,7 @@
                     Ваш ник
                 </label></td>
                 <td><input id="nick" name="nick" type="text" value="" required></td>
+                <%--<td><form:errors path="nick" /></td>--%>
                 <td></td>
             </tr>
 

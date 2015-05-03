@@ -38,11 +38,11 @@ public class UserController {
     UserValidator userValidator;
 
 
-    @RequestMapping(value = "addUser", method = RequestMethod.GET)
+    @RequestMapping(value = "addUser2", method = RequestMethod.GET)
     @PreAuthorize("isAnonymous()")
     public String addUser() {
         log.info("-----------------------Some object: {we are in the method add User, requestMethod GET}");
-        return "addUser";
+        return "addUser2";
     }
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
