@@ -21,12 +21,12 @@
             </tr>
             <tr>
                 <td>Цена</td>
-                <td><form:input path="price" type="number"/></td>
+                <td><form:input path="price" type="number" /></td>
             </tr>
 
             <tr>
                 <td>Количество</td>
-                <td><form:input path="Amount" type="number"/></td>
+                <td><form:input path="Amount" type="number" /></td>
             </tr>
             <tr>
                 <td colspan="2">

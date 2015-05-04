@@ -13,38 +13,40 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-public class GoodServiceImpl implements IGoodService {
+//@Service
+public class GoodServiceImpl
+//        implements IGoodService
+{
 
-    @Autowired
+//    @Autowired
     private IGoodDao goodDao;
 
-    @Transactional
+//    @Transactional
     public void add(Good good) {
         goodDao.add(good);
     }
 
-    @Transactional
+//    @Transactional
     public void edit(Good good) {
         goodDao.edit(good);
     }
 
-    @Transactional
+//    @Transactional
     public void delete(int id) {
         goodDao.delete(id);
     }
 
-    @Transactional
+//    @Transactional
     public Good getGood(int id) {
         return goodDao.getGood(id);
     }
 
-    @Transactional
+//    @Transactional
     public List getAllGood() {
         return goodDao.getAllGood();
     }
 
-    @Transactional
+//    @Transactional
     public Good findGoodByName(String goodname) {
         return goodDao.findGoodByName(goodname);
     }

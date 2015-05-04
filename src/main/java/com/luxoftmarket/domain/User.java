@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
-import com.luxoftmarket.domain.Role;
-import com.sun.istack.internal.NotNull;
+
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -18,7 +18,7 @@ public class User implements Serializable {
 
         @NotNull
         @Size(min=1,max=50)
-        @Column(name = "user_name", nullable = true, length = 50)
+        @Column(name = "user_name", nullable = true, length = 50, unique = true)
         private String nick;
 
         @NotNull

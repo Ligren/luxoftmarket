@@ -42,13 +42,22 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+	<!--<servlet>-->
+		<!--<servlet-name>addDataInDatabase</servlet-name>-->
+		<!--<servlet-class>com.luxoftmarket.service.impl.addDataInDatabase</servlet-class>-->
+		<!--<load-on-startup>1</load-on-startup>-->
+	<!--</servlet>-->
+
 	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<!-- Do not use '/*' Details here: http://stackoverflow.com/questions/19727310/cannot-get-spring-mvc-3-2-4-to-serve-jsp-with-urlbasedviewresolver -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-		<context-param>
+
+
+
+	<context-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				/WEB-INF/application-context.xml

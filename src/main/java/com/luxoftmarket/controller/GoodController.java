@@ -27,16 +27,15 @@ session http://www.java2s.com/Code/JavaAPI/javax.servlet.http/HttpSessionsetAttr
 
 package com.luxoftmarket.controller;
 
+import com.luxoftmarket.dao.IGoodDao;
 import com.luxoftmarket.dao.IRoleDao;
 import com.luxoftmarket.dao.IUserDao;
+import com.luxoftmarket.dao.impl.GoodDaoImpl;
+import com.luxoftmarket.dao.impl.RoleDaoImpl;
+import com.luxoftmarket.dao.impl.UserDaoImpl;
 import com.luxoftmarket.domain.Good;
-import com.luxoftmarket.domain.Role;
-import com.luxoftmarket.domain.User;
-import com.luxoftmarket.domain.UserStatus;
-import com.luxoftmarket.service.IGoodService;
 import com.luxoftmarket.validation.GoodValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -54,30 +53,26 @@ public class GoodController {
 
 
     @Autowired
-    private IGoodService goodService;
+    private IGoodDao goodDao;
+//    private IGoodService goodService;
     @Autowired
     private GoodValidator goodValidator;
     @Autowired
-    IUserDao userDao;
+    private IUserDao userDao;
+//    UserDaoImpl userDao;
     @Autowired
-    IRoleDao roleDao;
+    private IRoleDao roleDao;
+
+//    @Autowired
+//    public GoodController(GoodValidator goodValidator) {
+//        this.goodDao = new GoodDaoImpl();
+//        this.roleDao = roleDao;
+//        this.goodValidator = goodValidator;
+//        this.userDao = userDao;
+//    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
-        if (userDao.findUser(1) == null) {
-            roleDao.addRole(new Role("administrator"));
-            roleDao.addRole(new Role("user"));
-            roleDao.addRole(new Role("tester"));
-            List<Role> role = new ArrayList<Role>(3);
-            role.add(roleDao.findRole(1));
-            role.add(roleDao.findRole(2));
-            role.add(roleDao.findRole(3));
-            userDao.addUser(new User("Vladyslav", new BCryptPasswordEncoder().encode("bestDeveloper"), "sadkoua@gmail.com", role, UserStatus.ACTIVE));
-            Random rand = new Random();
-            for (int i = 1; i < 9; i++) {
-                goodService.add(new Good(i, "Товар №" + (rand.nextInt(99) + 1), rand.nextInt(99) + 1, rand.nextInt(99) + 1));
-            }
-        }
         return "index";
     }
 
@@ -85,7 +80,7 @@ public class GoodController {
     @RequestMapping(value = {"/admin", "/good.do"}, method = RequestMethod.GET)
 //    @PreAuthorize("hasRole('administrator')")
     public String setupForm(Map<String, Object> map, @ModelAttribute Good good) {
-        map.put("goodList", goodService.getAllGood());
+        map.put("goodList", goodDao.getAllGood());
         map.put("userList", userDao.getAllUsers());
         return "admin";
     }
@@ -93,29 +88,29 @@ public class GoodController {
     @RequestMapping(value = "/good.do", method = RequestMethod.POST)
     public String doAction(@Valid @ModelAttribute Good good, @RequestParam String action, Map<String, Object> map, BindingResult bindingResult) { //BindingResult bindingResult
         goodValidator.validate(good, bindingResult);
-        if (bindingResult.hasErrors()) {System.out.println("has errors"); List listError = bindingResult.getAllErrors(); System.out.println("our errors: " + listError.toString()); }
+//        if (bindingResult.hasErrors()) {System.out.println("has errors"); List listError = bindingResult.getAllErrors(); System.out.println("our errors: " + listError.toString()); }
         switch (action.toLowerCase()) {
             case "add":
-                if(!bindingResult.hasErrors()){ goodService.add(good); }
+                if(!bindingResult.hasErrors()){ goodDao.add(good); }
                 break;
             case "edit":
-                if(!bindingResult.hasErrors()) { goodService.edit(good); }
+                if(!bindingResult.hasErrors()) { goodDao.edit(good); }
                 break;
             case "delete":
-                if(good.getId() != null & goodService.getGood(good.getId()) != null) goodService.delete(good.getId());
+                if(good.getId() != null & goodDao.getGood(good.getId()) != null) goodDao.delete(good.getId());
                 break;
             case "search (id or name)":
                 Good searchedGood = null;
 
-                if(good.getId() != null) searchedGood = goodService.getGood(good.getId());
+                if(good.getId() != null) searchedGood = goodDao.getGood(good.getId());
 
-                if (searchedGood == null & good.getName() != null) searchedGood = goodService.findGoodByName(good.getName());
+                if (searchedGood == null & good.getName() != null) searchedGood = goodDao.findGoodByName(good.getName());
 
                 if (searchedGood != null) map.put("good", searchedGood);
 
                 break;
         }
-        map.put("goodList", goodService.getAllGood());
+        map.put("goodList", goodDao.getAllGood());
         map.put("userList", userDao.getAllUsers());
         return "admin";
     }
@@ -123,7 +118,7 @@ public class GoodController {
     @RequestMapping(value = "/buy", method = RequestMethod.GET)
 //    @PreAuthorize("isAuthenticated()")
     public String byuStart(Map<String, Object> map) {
-        map.put("goodList", goodService.getAllGood());
+        map.put("goodList", goodDao.getAllGood());
         return "buy";
     }
 
@@ -163,14 +158,14 @@ public class GoodController {
             purchase.put(key, oldAmount + amount);
 
         } else {
-            purchase.put(goodService.getGood(goodId), amount);
+            purchase.put(goodDao.getGood(goodId), amount);
         }
 
-        Good goodInStore = goodService.getGood(goodId);
+        Good goodInStore = goodDao.getGood(goodId);
         goodInStore.setAmount(goodInStore.getAmount() - amount);
-        goodService.edit(goodInStore);
+        goodDao.edit(goodInStore);
 
-        map.put("goodList", goodService.getAllGood());
+        map.put("goodList", goodDao.getAllGood());
         req.setAttribute("goodInBasket", purchase);
 
         return "buy";

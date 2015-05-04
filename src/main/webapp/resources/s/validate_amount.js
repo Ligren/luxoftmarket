@@ -5,7 +5,7 @@ function validate_amount (amount_required, amount_have , submit) {
     if ( document.getElementById(amount_have).value < document.getElementById(amount_required).value )
     {
         alert ( "На складе меньше чем требуется Вам !" );
-        valid = false;
+        //valid = false;
     }
 
     return valid;
