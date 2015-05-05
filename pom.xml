@@ -4,14 +4,13 @@
     <groupId>com.springapp</groupId>
     <artifactId>luxoftmarket</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
     <name>luxoftmarket</name>
+    <version>1.0</version>
 
     <properties>
         <project.build.finalName>luxoftmarket</project.build.finalName>
         <org.springframework.version>4.1.1.RELEASE</org.springframework.version>
         <tomcat.version>7.0.59</tomcat.version>
-        <servlet.version>3.0.1</servlet.version>
         <spring.security.version>3.2.6.RELEASE</spring.security.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -168,35 +167,13 @@
 
         <!-- End Spring Security -->
 
-
-        <!--<dependency>-->
-            <!--<groupId>javax.servlet</groupId>-->
-            <!--<artifactId>servlet-api</artifactId>-->
-            <!--<version>2.5</version>-->
-        <!--</dependency>-->
-
-
         <!-- Hibernate -->
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>3.6.0.Final</version>
-            <!--<version>4.3.6.Final</version>-->
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.4.0.GA</version>
-
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <!--<version>3.3.0.ga</version>-->
-            <version>3.3.0.GA</version>
+            <!--<version>3.6.0.Final</version>-->
+            <version>4.3.6.Final</version>
         </dependency>
 
         <dependency>
@@ -207,26 +184,29 @@
 
         <!-- End Hibernate -->
 
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
+
+
         <!-- Servlet -->
 
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <artifactId>servlet-api</artifactId>
+            <version>3.0-alpha-1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
         </dependency>
 
-
-
         <!-- Other -->
-
 
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -280,11 +260,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.12</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-api</artifactId>-->
+            <!--<version>1.7.12</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -295,21 +275,6 @@
 
     </dependencies>
 
-
-
-
-
-
-            <!--<dependency>-->
-                <!--<groupId> org.apache.cassandra</groupId>-->
-                <!--<artifactId>cassandra-all</artifactId>-->
-                <!--<version>0.8.1</version>-->
-
-
-
-            <!--</dependency>-->
-
-
     <build>
         <finalName>luxoftmarket</finalName>
         <plugins>
@@ -317,7 +282,6 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.3</version>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -332,11 +296,39 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.1</version>
+
+
                 <configuration>
                     <path>/${project.build.finalName}</path>
                 </configuration>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.tomcat.maven</groupId>-->
+                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+                <!--<version>2.2</version>-->
+            <!--<executions>-->
+                <!--<execution>-->
+                    <!--<id>tomcat-run</id>-->
+                    <!--<goals>-->
+                        <!--<goal>run</goal>-->
+                    <!--</goals>-->
+                    <!--<phase>pre-integration-test</phase>-->
+                    <!--<configuration>-->
+                        <!--<path>/${project.build.finalName}</path>-->
+                        <!--<fork>true</fork>-->
+                        <!--<useTestClasspath>true</useTestClasspath>-->
+                    <!--</configuration>-->
+                <!--</execution>-->
+                <!--<execution>-->
+                    <!--<id>tomcat-shutdown</id>-->
+                    <!--<phase>post-integration-test</phase>-->
+                    <!--<goals>-->
+                        <!--<goal>shutdown</goal>-->
+                    <!--</goals>-->
+                <!--</execution>-->
+            <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
-
     </build>
+    <!--http://stackoverflow.com/questions/21628020/tomcat7shutdown-by-maven-->
 </project>

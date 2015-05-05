@@ -17,10 +17,10 @@
 
     <!-- To prevent browser's back button on dispalying secured resource after logout -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="cacheSeconds" value="0" />
+        <property name="cacheSeconds" value="0"/>
     </bean>
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <!-- Для использования сокращенных имен в Controller, т.е. страницы, которые находятся в "/WEB-INF/pages/" с суффиксом ".jsp" могут прописываться в контроллере без префикса и без суффикса -->
@@ -34,81 +34,28 @@
                                      secured-annotations="enabled"/>
 
     <security:http use-expressions="true">
-        <!--<security:session-management invalid-session-url="/Login" >-->
-        <security:session-management invalid-session-url="/" >
-            <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"  />
+        <security:session-management invalid-session-url="/">
+            <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
         </security:session-management>
-
-        <!--все доступно всем-->
-        <!-- this means all URL in this app will be checked fi user is authenticated -->
-        <!--<security:intercept-url pattern="/**" access="permitAll"/>-->
-
-        <security:form-login/> <!-- We will just use the built use the built-in form login page in Spring -->
-
-        <!-- this means all URL we will use in JSP -->
-        <!-- <logout logout-url="/logout" logout-success-url="/index"/> -->
-
+        <security:form-login/>
         <security:logout logout-success-url="/" delete-cookies="JSESSIONID"/>
         <security:remember-me/>
     </security:http>
 
-
-
-
-
-    <!--<security:authentication-manager>-->
-        <!--<security:authentication-provider>-->
-            <!--&lt;!&ndash; Normally, in this part, you will declare the source of your users-->
-                 <!--But for simplicity (простота), we will hard-core the users. This is very useful (полезно) while testing setup (установить) &ndash;&gt;-->
-
-            <!--&lt;!&ndash; использует encoder объявленый выше, для шифрования пароля &ndash;&gt;-->
-            <!--<security:password-encoder ref="encoder"/>-->
-
-            <!--<security:user-service>-->
-                <!--&lt;!&ndash; password "koala" for both &ndash;&gt;-->
-                <!--<security:user name="user"-->
-                               <!--password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde"-->
-                               <!--authorities="user"/>-->
-                <!--<security:user name="admin"-->
-                               <!--password="4efe081594ce25ee4efd9f7067f7f678a347bccf2de201f3adf2a3eb544850b465b4e51cdc3fcdde"-->
-                               <!--authorities="admin, user"/>-->
-            <!--</security:user-service>-->
-             <!--&lt;!&ndash;<jdbc user service data source ref "dataSource"&ndash;&gt;-->
-             <!--&lt;!&ndash;users by username query "select username password enabled where username =""&ndash;&gt;-->
-             <!--&lt;!&ndash;autorities by username query "select u.username, au.authority&ndash;&gt;-->
-             <!--&lt;!&ndash;from users u, authorities au&ndash;&gt;-->
-             <!--&lt;!&ndash;where u.id = au.user_id and u.username ="" />&ndash;&gt;-->
-        <!--</security:authentication-provider>-->
-    <!--</security:authentication-manager>-->
-
-    <!-- нужен для шифрования пароля -->
-    <!--<bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>-->
     <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
- <!--<bean id="authProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">-->
-        <!--<property name="userDetailsService" ref="userDetailsService" />-->
-        <!--<property name="passwordEncoder" ref="encoder" />-->
-    <!--</bean>-->
-
-
-    <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-       <property name="userDetailsService" ref="userDetailsService"></property>
+    <bean id="daoAuthenticationProvider"
+          class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailsService"></property>
     </bean>
 
-    <bean id="authenticationManager"
-          class="org.springframework.security.authentication.ProviderManager">
-        <property name="providers">
-            <list>
-                <ref bean="daoAuthenticationProvider"/>
-            </list>
-        </property>
+    <bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+        <constructor-arg ref="daoAuthenticationProvider"/>
     </bean>
 
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="userDetailsService">
-            <!--<security:password-encoder hash="md5"></security:password-encoder>-->
             <security:password-encoder ref="encoder"/>
-        <!--</security:password-encoder>-->
         </security:authentication-provider>
     </security:authentication-manager>
 

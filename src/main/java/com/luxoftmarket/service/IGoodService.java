@@ -4,7 +4,9 @@ import com.luxoftmarket.domain.Good;
 
 import java.util.List;
 
-/*In Service level must be business logic, but, unfortunately, I have not any time make here her*/
+/*
+*In the Service level there must be business logic but, unfortunately, I have not any time to make it there.
+* */
 public interface IGoodService {
     void add(Good good);
     void edit(Good good);

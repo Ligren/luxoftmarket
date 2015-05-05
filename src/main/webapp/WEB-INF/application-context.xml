@@ -3,97 +3,58 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
-       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">-->
 
-       <!-- Для использования place holder (вида ${jdbc.databaseurl} необходимо включить следующий context:property-placeholder-->
-       <!--<context:property-placeholder location="classpath:jdbc.properties" system-properties-mode="ENVIRONMENT"/>-->
+    <context:component-scan base-package="com.luxoftmarket"/>
 
-       <!--SQL -->
-       <!--<context:property-placeholder location="classpath:jdbcMySQL.properties" />-->
+    <tx:annotation-driven/>
 
-       <!-- H2 -->
-       <context:property-placeholder location="classpath:jdbcH2.properties" />
+    <!--SQL -->
+    <!--<context:property-placeholder location="classpath:jdbcMySQL.properties" />-->
 
-       <!-- Необходимо добавить component-scan для всех бинов, которые создаются аннотациями (например GoodRepository) -->
-       <!-- теперь бин репозитория будет доступен в контексте приложения -->
-       <context:component-scan base-package="com.luxoftmarket"/>
+    <!-- H2 -->
+    <context:property-placeholder location="classpath:jdbcH2.properties"/>
 
 
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
-       <!-- аннотация, которая включает транзакции -->
-       <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan">
+            <list>
+                <value>com.luxoftmarket.domain</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.show_sql">
+                    ${jdbc.show_sql}
+                </prop>
+                <prop key="hibernate.dialect">
+                    ${jdbc.dialect}
+                </prop>
+                <prop key="hibernate.connection.charSet">
+                    ${jdbc.charSet}
+                </prop>
+                <prop key="hibernate.hbm2ddl.auto">
+                    ${jdbc.hbm2ddl.auto}
+                </prop>
+            </props>
+        </property>
+    </bean>
 
-       <!-- for security -->
-       <!-- security-config.xml подгружен в web.xml -->
-       <!--<import resource="security-config.xml"/>-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.databaseurl}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
 
-
-       <!-- Бин, который создает transactionManager -->
-       <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-              <property name="sessionFactory" ref="sessionFactory"/>
-       </bean>
-<!--
-       <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
-              <property name="dataSource" ref="dataSource" />
-       </bean>
-
-       <jdbc:embedded-database id="embeddedDatasource" type="HSQL"/>
-
-       <jdbc:embedded-database id="embeddedDataSource">
-              <jdbc:script location="classpath:addvalues.sql"/>
-       </jdbc:embedded-database>
-
--->
-       <!-- Бин, который создает dataSource (источник данных) для Hibernate - настройки подключения к базе -->
-       <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-              <!-- Для использования place holder (вида ${jdbc.databaseurl} для наших настроек, что-бы они стали доступны, нам нужно включить их с помощью context:property-placeholder -->
-              <!-- <context:property-placeholder location="classpath:jdbc.properties" system-properties-mode="ENVIRONMENT"/> -->
-              <property name="driverClassName" value="${jdbc.driverClassName}"/>
-              <property name="url" value="${jdbc.databaseurl}"/>
-              <property name="username" value="${jdbc.username}"/>
-              <property name="password" value="${jdbc.password}"/>
-              <!--<jdbc:script location="classpath:db/test-data.sql"/>-->
-       </bean>
-
-
-       <!--<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">-->
-              <!--<property name="dataSource" ref="dataSource" />-->
-       <!--</bean>-->
-
-
-       <!-- Бин, который создает sessionFactory для Hibernate -->
-       <!--<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">-->
-       <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-              <property name="dataSource" ref="dataSource"/>
-              <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
-              <!-- Не желательно с новой версией Hibernate -->
-              <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
-              <!-- Not work -->
-              <!--<property name="configurationClass" value="org.hibernate.cfg.Configuration"/>-->
-              <property name="hibernateProperties">
-                     <props>
-                            <prop key="hibernate.show_sql">
-                                   true
-                            </prop>
-                            <prop key="hibernate.dialect">
-                                   ${jdbc.dialect}
-                            </prop>
-                            <prop key="hibernate.connection.charSet">
-                                   UTF-8
-                            </prop>
-
-                            <!--  Automatically create and drop the schema in our memory db -->
-                            <prop key="hibernate.hbm2ddl.auto">create</prop>
-                            <!--http://stackoverflow.com/questions/438146/hibernate-hbm2ddl-auto-possible-values-and-what-they-do-->
-                     </props>
-              </property>
-       </bean>
 </beans>
-

@@ -1,6 +1,6 @@
 package com.luxoftmarket.domain;
 
-//import com.sun.istack.internal.NotNull;
+import org.hibernate.dialect.H2Dialect;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,24 +8,23 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "goods")
+@Table(name = "GOODS")
 public class Good implements Serializable {
 
     @Id
-    @NotNull
-    @Column(name  = "id_good", nullable = false, length = 8)
+    @Column(name  = "ID_GOOD", nullable = false, length = 8)
     @GeneratedValue
     private Integer id;
 
     @NotNull
     @Size(min=1,max=150)
-    @Column(name = "good_name", nullable = false, length = 150)
+    @Column(name = "GOOD_NAME", nullable = false, length = 150)
     private String name;
 
-    @Column(name = "good_price", nullable = false, length = 8)
+    @Column(name = "GOOD_PRICE", nullable = false, length = 8)
     private Integer price;
 
-    @Column(name = "good_amount", nullable = true, length = 8)
+    @Column(name = "GOOD_AMOUNT", nullable = true, length = 8)
     private Integer amount;
 
     public Good() {}
@@ -37,9 +36,7 @@ public class Good implements Serializable {
         this.amount = amount;
     }
 
-    public Integer getId() {
-        return id;
-    }
+    public Integer getId() { return id; }
 
     public void setId(Integer id) {
         this.id = id;

@@ -1,5 +1,6 @@
 package com.luxoftmarket.domain;
 // I`m using Many to many mapping since Many users can have many roles and many roles can be assigned to many users.
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -8,35 +9,34 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User implements Serializable {
 
         @Id
-        @Column(name  = "id_user", nullable = false, length = 5)
+        @Column(name  = "ID_USER", nullable = false, length = 5)
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Integer id;
 
         @NotNull
-        @Size(min=1,max=50)
-        @Column(name = "user_name", nullable = true, length = 50, unique = true)
+        @Size(min = 1 , max = 50)
+        @Column(name = "USER_NAME", nullable = true, length = 50, unique = true)
         private String nick;
 
         @NotNull
-        @Column(name = "user_password", nullable = true, length = 200)
+        @Column(name = "USER_PASSWORD", nullable = true, length = 200)
         private String password;
 
-        @Column(name = "user_email", nullable = true, length = 50)
+        @Column(name = "USER_EMAIL", nullable = true, length = 50)
         private String email;
 
-        @NotNull
-        @ManyToMany
-        @JoinTable(name="UsersAndRoles",
-                joinColumns = @JoinColumn(name="id_user"),
-                inverseJoinColumns = @JoinColumn(name = "id_role"))
+        @ManyToMany(cascade = CascadeType.ALL)
+        @JoinTable(name="USERSANDROLES",
+                joinColumns = @JoinColumn(name="ID_USER"),
+                inverseJoinColumns = @JoinColumn(name = "ID_ROLE"))
         private List<Role> roles;
 
         @NotNull
-        @Column(name = "status", nullable = false, length = 15)
+        @Column(name = "STATUS", nullable = false, length = 15)
         @Enumerated(EnumType.STRING)
         private UserStatus status;
 

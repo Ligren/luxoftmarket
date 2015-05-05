@@ -4,47 +4,31 @@
 		 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
 		http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-
-
 	<display-name>Present for Luxoft</display-name>
 
-
-
 	<!-- Security -->
-
-	<!-- подключаем фильтры -->
-	<!-- все запросы будут обрабатываться Security механизмом -->
-	<!-- Define (определять) a filter to enable Spring Security, be sure to use the suggasted (предложенный) name 'springSecurityFilterChain' -->
 
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 
-
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-
 
 	<!-- End security -->
 
 	<servlet>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!--<init-param>-->
-			<!--<param-name>contextConfigLocation</param-name>-->
-			<!--Should be empty if we want to have only one application config file-->
-			<!--<param-value></param-value>-->
-		<!--</init-param>-->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<!--<servlet>-->
-		<!--<servlet-name>addDataInDatabase</servlet-name>-->
-		<!--<servlet-class>com.luxoftmarket.service.impl.addDataInDatabase</servlet-class>-->
+		<!--<servlet-name>AddDataInDatabase</servlet-name>-->
+		<!--<servlet-class>com.luxoftmarket.service.impl.AddDataInDatabase</servlet-class>-->
 		<!--<load-on-startup>1</load-on-startup>-->
 	<!--</servlet>-->
 
@@ -54,9 +38,6 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-
-
-
 	<context-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
@@ -64,7 +45,6 @@
 				/WEB-INF/mvc-dispatcher-servlet.xml
 			</param-value>
 		</context-param>
-
 
 	<listener>
 			<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -95,6 +75,5 @@
 			<filter-name>SetCharacterEncodingFilter</filter-name>
 			<url-pattern>/*</url-pattern>
 		</filter-mapping>
-
 
 </web-app>

@@ -1,7 +1,5 @@
 package com.luxoftmarket.domain;
 
-//import com.sun.istack.internal.NotNull;
-
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -9,16 +7,15 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "ROLES")
 public class Role implements Serializable {
     @Id
-    @NotNull
-    @Column(name  = "id_role", nullable = false, length = 10)
+    @Column(name  = "ID_ROLE", nullable = false, length = 10)
     @GeneratedValue
     private Integer id;
 
     @NotNull
-    @Column(name = "role_name", nullable = false, length = 50)
+    @Column(name = "ROLE_NAME", nullable = false, length = 50)
     private String name;
 
     @ManyToMany(mappedBy = "roles")

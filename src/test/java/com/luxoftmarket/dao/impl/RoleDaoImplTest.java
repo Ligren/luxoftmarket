@@ -2,7 +2,7 @@ package com.luxoftmarket.dao.impl;
 
 import com.luxoftmarket.domain.Role;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
+import org.hibernate.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,9 @@ public class RoleDaoImplTest {
     private Role testRole;
 
     @Before
-    public void createTestRole() { Role testRole = new Role(); this.testRole = testRole; }
+    public void createTestRole() {
+        this.testRole = new Role();
+    }
 
     @Test
     public void testFindRole() throws Exception {

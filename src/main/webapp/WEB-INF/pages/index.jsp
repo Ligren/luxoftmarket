@@ -27,7 +27,7 @@
     <br>
 
     <sec:authorize access="isAnonymous()">
-        <a href="addUser2">Регистрация</a><br>
+        <a href="addUser">Регистрация</a><br>
     </sec:authorize>
 
     <sec:authorize access="isAuthenticated()">

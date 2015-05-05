@@ -30,12 +30,13 @@ package com.luxoftmarket.controller;
 import com.luxoftmarket.dao.IGoodDao;
 import com.luxoftmarket.dao.IRoleDao;
 import com.luxoftmarket.dao.IUserDao;
-import com.luxoftmarket.dao.impl.GoodDaoImpl;
-import com.luxoftmarket.dao.impl.RoleDaoImpl;
-import com.luxoftmarket.dao.impl.UserDaoImpl;
 import com.luxoftmarket.domain.Good;
+import com.luxoftmarket.domain.Role;
+import com.luxoftmarket.domain.User;
+import com.luxoftmarket.domain.UserStatus;
 import com.luxoftmarket.validation.GoodValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,28 +52,33 @@ import java.util.*;
 @Controller
 public class GoodController {
 
-
     @Autowired
     private IGoodDao goodDao;
-//    private IGoodService goodService;
     @Autowired
     private GoodValidator goodValidator;
     @Autowired
     private IUserDao userDao;
-//    UserDaoImpl userDao;
     @Autowired
     private IRoleDao roleDao;
 
-//    @Autowired
-//    public GoodController(GoodValidator goodValidator) {
-//        this.goodDao = new GoodDaoImpl();
-//        this.roleDao = roleDao;
-//        this.goodValidator = goodValidator;
-//        this.userDao = userDao;
-//    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
+//        if (false) {
+            if (userDao.findUser(1) == null) {
+            roleDao.addRole(new Role("administrator"));
+            roleDao.addRole(new Role("user"));
+            roleDao.addRole(new Role("tester"));
+            List<Role> role = new ArrayList<Role>(3);
+            role.add(roleDao.findRole(1));
+            role.add(roleDao.findRole(2));
+            role.add(roleDao.findRole(3));
+            userDao.addUser(new User("Vladyslav", new BCryptPasswordEncoder().encode("bestDeveloper"), "sadkoua@gmail.com", role, UserStatus.ACTIVE));
+            Random rand = new Random();
+            for (int i = 1; i < 9; i++) {
+                goodDao.add(new Good(i, "Товар №" + (rand.nextInt(99) + 1), rand.nextInt(99) + 1, rand.nextInt(99) + 1));
+            }
+        }
+
         return "index";
     }
 
@@ -91,20 +97,25 @@ public class GoodController {
 //        if (bindingResult.hasErrors()) {System.out.println("has errors"); List listError = bindingResult.getAllErrors(); System.out.println("our errors: " + listError.toString()); }
         switch (action.toLowerCase()) {
             case "add":
-                if(!bindingResult.hasErrors()){ goodDao.add(good); }
+                if (!bindingResult.hasErrors()) {
+                    goodDao.add(good);
+                }
                 break;
             case "edit":
-                if(!bindingResult.hasErrors()) { goodDao.edit(good); }
+                if (!bindingResult.hasErrors()) {
+                    goodDao.edit(good);
+                }
                 break;
             case "delete":
-                if(good.getId() != null & goodDao.getGood(good.getId()) != null) goodDao.delete(good.getId());
+                if (good.getId() != null & goodDao.getGood(good.getId()) != null) goodDao.delete(good.getId());
                 break;
             case "search (id or name)":
                 Good searchedGood = null;
 
-                if(good.getId() != null) searchedGood = goodDao.getGood(good.getId());
+                if (good.getId() != null) searchedGood = goodDao.getGood(good.getId());
 
-                if (searchedGood == null & good.getName() != null) searchedGood = goodDao.findGoodByName(good.getName());
+                if (searchedGood == null & good.getName() != null)
+                    searchedGood = goodDao.findGoodByName(good.getName());
 
                 if (searchedGood != null) map.put("good", searchedGood);
 

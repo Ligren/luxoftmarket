@@ -29,7 +29,6 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    //    private UserValidator userValidator;
     private Logger log = LoggerFactory.getLogger(UserController.class); // 1. Объявляем переменную логгера
 
     @Autowired
@@ -39,19 +38,11 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
-//    @Qualifier("userDaoImpl")
-//    @Autowired
-//    private IUserDao dao;
-//    @Autowired
-//    public UserController(UserValidator userValidator) {
-//        this.userValidator=userValidator;
-//    }
-
-    @RequestMapping(value = "addUser2", method = RequestMethod.GET)
+    @RequestMapping(value = "addUser", method = RequestMethod.GET)
     @PreAuthorize("isAnonymous()")
     public String addUser() {
         log.info("-----------------------Some object: {we are in the method add User, requestMethod GET}");
-        return "addUser2";
+        return "addUser";
     }
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
@@ -65,7 +56,7 @@ public class UserController {
 
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-            List<Role> role = new ArrayList<Role>(1);
+            List<Role> role = new ArrayList<>(1);
             role.add(roleDao.findRole(2)); //set "user" role for user
 
             user.setRoles(role);

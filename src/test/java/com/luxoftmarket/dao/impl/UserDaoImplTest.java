@@ -4,7 +4,8 @@ import com.luxoftmarket.domain.User;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
+import org.hibernate.*;
+//import org.hibernate.classic.Session;
 import org.hibernate.criterion.Criterion;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class UserDaoImplTest {
     private User testUser;
 
     @Before
-    public void createUser() { User testUser = new User(); this.testUser = testUser; }
+    public void createUser() { this.testUser = new User(); }
 
     @Before
     public void doReturnSessionFactory() { doReturn(mockSession).when(sessionFactory).getCurrentSession(); }
