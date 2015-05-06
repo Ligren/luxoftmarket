@@ -29,15 +29,10 @@ unit test https://cloud.google.com/appengine/docs/java/tools/localunittesting
 package com.luxoftmarket.controller;
 
 import com.luxoftmarket.dao.IGoodDao;
-import com.luxoftmarket.dao.IRoleDao;
 import com.luxoftmarket.dao.IUserDao;
 import com.luxoftmarket.domain.Good;
-import com.luxoftmarket.domain.Role;
-import com.luxoftmarket.domain.User;
-import com.luxoftmarket.domain.UserStatus;
 import com.luxoftmarket.validation.GoodValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,7 +43,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Controller
 public class GoodController {
@@ -59,27 +56,9 @@ public class GoodController {
     private GoodValidator goodValidator;
     @Autowired
     private IUserDao userDao;
-    @Autowired
-    private IRoleDao roleDao;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
-//        if (false) {
-            if (userDao.findUser(1) == null) {
-            roleDao.addRole(new Role("administrator"));
-            roleDao.addRole(new Role("user"));
-            roleDao.addRole(new Role("tester"));
-            List<Role> role = new ArrayList<Role>(3);
-            role.add(roleDao.findRole(1));
-            role.add(roleDao.findRole(2));
-            role.add(roleDao.findRole(3));
-            userDao.addUser(new User("Vladyslav", new BCryptPasswordEncoder().encode("bestDeveloper"), "sadkoua@gmail.com", role, UserStatus.ACTIVE));
-            Random rand = new Random();
-            for (int i = 1; i < 9; i++) {
-                goodDao.add(new Good(i, "Товар №" + (rand.nextInt(99) + 1), rand.nextInt(99) + 1, rand.nextInt(99) + 1));
-            }
-        }
-
         return "index";
     }
 
@@ -95,7 +74,6 @@ public class GoodController {
     @RequestMapping(value = "/good.do", method = RequestMethod.POST)
     public String doAction(@Valid @ModelAttribute Good good, @RequestParam String action, Map<String, Object> map, BindingResult bindingResult) { //BindingResult bindingResult
         goodValidator.validate(good, bindingResult);
-//        if (bindingResult.hasErrors()) {System.out.println("has errors"); List listError = bindingResult.getAllErrors(); System.out.println("our errors: " + listError.toString()); }
         switch (action.toLowerCase()) {
             case "add":
                 if (!bindingResult.hasErrors()) {

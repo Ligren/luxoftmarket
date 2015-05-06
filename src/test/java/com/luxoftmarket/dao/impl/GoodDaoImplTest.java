@@ -3,9 +3,8 @@ package com.luxoftmarket.dao.impl;
 import com.luxoftmarket.domain.Good;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-//import org.hibernate.classic.Session;
-import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;

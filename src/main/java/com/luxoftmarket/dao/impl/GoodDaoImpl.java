@@ -18,9 +18,6 @@ public class GoodDaoImpl implements IGoodDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Autowired
-    private GoodValidator goodValidator;
-
     @Override
     @Transactional
     public void add(Good good) {

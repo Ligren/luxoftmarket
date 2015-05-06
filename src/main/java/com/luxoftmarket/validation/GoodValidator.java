@@ -6,8 +6,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-@Component//аннотация @Component = Спринг создаст бин данного класса, необходимо добавить зависимость на этот валидатор в наш контроллер
-public class GoodValidator implements Validator {//имплементид интерфейс валидатор, который находится в спринге
+@Component
+public class GoodValidator implements Validator {
 
 
     @Override
@@ -17,16 +17,12 @@ public class GoodValidator implements Validator {//имплементид инт
 
     @Override
     public void validate(Object o, Errors errors) {
-//        Good good = (Good) o;
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.name", "Обязательно введите имя."); // проверка того что данные значения не пустые
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "required.price", "Обязательно введите цену.");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "amount", "required.amoun", "Обязательно введите кол-во на складе.");
-//    try { new Integer("good.getPrice()"); }catch (NumberFormatException e) { errors.rejectValue("good.getPrice()", "not_true_number", "Введите Именно число!"); }
-//    try { new Integer("good.getAmount()"); }catch (NumberFormatException e) { errors.rejectValue("good.getAmount()", "not_true_number", "Введите Именно число!"); }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required.name", "Обязательно введите имя."); // проверка того что данные значения не пустые
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "required.price", "Обязательно введите цену.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "amount", "required.amoun", "Обязательно введите кол-во на складе.");
+    }
 
-        }
-
-        }
+}
 
 
 

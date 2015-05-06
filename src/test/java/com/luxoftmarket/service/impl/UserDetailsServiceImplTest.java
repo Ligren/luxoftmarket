@@ -32,6 +32,8 @@ public class UserDetailsServiceImplTest {
         when(userDao.findUserByName(anyString())).thenReturn(isNull(User.class));
 
         s.loadUserByUsername("sameName");
+
+        verify(userDao).findUserByName(anyString());
     }
 
     @Test

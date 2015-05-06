@@ -1,15 +1,14 @@
 package com.luxoftmarket.dao.impl;
 
 import com.luxoftmarket.domain.Role;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;

@@ -20,6 +20,7 @@
     <!-- H2 -->
     <context:property-placeholder location="classpath:jdbcH2.properties"/>
 
+    <bean id="AddDataInDataBase" class="com.luxoftmarket.service.impl.AddDataInDatabase"/>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>

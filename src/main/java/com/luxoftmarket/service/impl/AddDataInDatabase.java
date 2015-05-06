@@ -11,14 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @Component
-public class AddDataInDatabase extends HttpServlet {
+public class AddDataInDatabase {
 
     @Autowired
     IGoodDao goodDao;
@@ -27,16 +27,17 @@ public class AddDataInDatabase extends HttpServlet {
     @Autowired
     IRoleDao roleDao;
 
+    @PostConstruct
     public void init() throws ServletException {
         if (userDao.findUser(1) == null) {
-            roleDao.addRole(new Role("administrator"));
-            roleDao.addRole(new Role("user"));
-            roleDao.addRole(new Role("tester"));
-            List<Role> role = new ArrayList<Role>(3);
-            role.add(roleDao.findRole(1));
-            role.add(roleDao.findRole(2));
-            role.add(roleDao.findRole(3));
-            userDao.addUser(new User("Vladyslav", new BCryptPasswordEncoder().encode("bestDeveloper"), "sadkoua@gmail.com", role, UserStatus.ACTIVE));
+            List<Role> rolesForAdmin = new ArrayList<Role>(3);
+            String[] roles = {"administrator", "user", "tester"};
+            for (String roleName : roles) {
+                Role roleTemp = new Role(roleName);
+                roleDao.addRole(roleTemp);
+                rolesForAdmin.add(roleTemp);
+            }
+            userDao.addUser(new User("Vladyslav", new BCryptPasswordEncoder().encode("bestDeveloper"), "sadkoua@gmail.com", rolesForAdmin, UserStatus.ACTIVE));
             Random rand = new Random();
             for (int i = 1; i < 9; i++) {
                 goodDao.add(new Good(i, "Товар №" + (rand.nextInt(99) + 1), rand.nextInt(99) + 1, rand.nextInt(99) + 1));
@@ -44,3 +45,4 @@ public class AddDataInDatabase extends HttpServlet {
         }
     }
 }
+

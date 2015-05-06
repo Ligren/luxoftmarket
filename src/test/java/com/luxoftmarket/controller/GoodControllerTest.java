@@ -4,8 +4,6 @@ import com.luxoftmarket.dao.IGoodDao;
 import com.luxoftmarket.dao.IRoleDao;
 import com.luxoftmarket.dao.IUserDao;
 import com.luxoftmarket.domain.Good;
-import com.luxoftmarket.domain.Role;
-import com.luxoftmarket.domain.User;
 import com.luxoftmarket.validation.GoodValidator;
 import org.apache.catalina.Session;
 import org.hibernate.SessionFactory;
@@ -53,32 +51,13 @@ public class GoodControllerTest {
 
     @Test
     public void testIndex() throws Exception {
+        String toBeReturned = s.index();
 
-        doNothing().when(roleDao).addRole(any(Role.class));
-        doNothing().when(goodDao).add(any(Good.class));
-        doNothing().when(userDao).addUser(any(User.class));
-        doReturn(new Role()).when(roleDao).findRole(1);
-        doReturn(new Role()).when(roleDao).findRole(2);
-        doReturn(new Role()).when(roleDao).findRole(3);
-
-        s.index();
-
-        verify(roleDao, times(3)).addRole(any(Role.class));
-        verify(goodDao, times(8)).add(any(Good.class));
-        verify(roleDao).findRole(1);
-        verify(roleDao).findRole(2);
-        verify(roleDao).findRole(3);
-        verify(userDao).addUser(any(User.class));
+        assertEquals("index", toBeReturned);
     }
 
     @Test
     public void testSetupForm() throws Exception {
-        /*
-        map.put("goodList", goodDao.getAllGood());
-        map.put("userList", userDao.getAllUsers());
-        return "admin";
-         */
-
         List listGood = new ArrayList();
         doReturn(listGood).when(goodDao).getAllGood();
 
@@ -97,7 +76,7 @@ public class GoodControllerTest {
     public void testDoActionAddHasError() throws Exception {
 
         BindingResult mockBinding = mock(BindingResult.class);
-        Map testMap = new HashMap<String, Object>();
+        Map testMap = new HashMap<>();
 
         doNothing().when(goodValidator).validate(anyObject(), any(Errors.class));
         doReturn(true).when(mockBinding).hasErrors();
@@ -117,48 +96,15 @@ public class GoodControllerTest {
     @Test
     public void testDoActionAddNoError() throws Exception {
 
-//        goodValidator.validate(good, bindingResult);
-/*        switch (action.toLowerCase()) {
-            case "add":
-                if (!bindingResult.hasErrors()) {
-                    goodDao.add(good);
-                }
-                break;
-            case "edit":
-                if (!bindingResult.hasErrors()) {
-                    goodDao.edit(good);
-                }
-                break;
-            case "delete":
-                if (good.getId() != null & goodDao.getGood(good.getId()) != null) goodDao.delete(good.getId());
-                break;
-            case "search (id or name)":
-                Good searchedGood = null;
-
-                if (good.getId() != null) searchedGood = goodDao.getGood(good.getId());
-
-                if (searchedGood == null & good.getName() != null)
-                    searchedGood = goodDao.findGoodByName(good.getName());
-
-                if (searchedGood != null) map.put("good", searchedGood);
-
-                break;
-        }
-        map.put("goodList", goodDao.getAllGood());
-        map.put("userList", userDao.getAllUsers());
-        return "admin";
-*/
         BindingResult mockBinding = mock(BindingResult.class);
-        Map testMap = new HashMap<String, Object>();
+        Map testMap = new HashMap<>();
 
-//        doNothing().when(goodValidator).validate(anyObject(), mock(Errors.class));
         when((mockBinding).hasErrors()).thenReturn(false);
         doReturn(new ArrayList()).when(goodDao).getAllGood();
         doReturn(new ArrayList()).when(userDao).getAllUsers();
         doNothing().when(goodDao).add(any(Good.class));
 
         String toBeReturned = s.doAction(new Good(), "add", testMap, mockBinding);
-//        verify(goodValidator).validate(any(Good.class), mockBinding);
         verify(mockBinding).hasErrors();
         verify(goodDao).getAllGood();
         verify(goodDao).add(any(Good.class));
@@ -192,7 +138,7 @@ public class GoodControllerTest {
     public void testDoActionEditHasError() throws Exception {
 
         BindingResult mockBinding = mock(BindingResult.class);
-        Map testMap = new HashMap<String, Object>();
+        Map testMap = new HashMap<>();
 
         doNothing().when(goodValidator).validate(anyObject(), any(Errors.class));
         when((mockBinding).hasErrors()).thenReturn(true);
@@ -214,7 +160,7 @@ public class GoodControllerTest {
     public void testDoActionDelete() throws Exception {
 
         BindingResult mockBinding = mock(BindingResult.class);
-        Map testMap = new HashMap<String, Object>();
+        Map testMap = new HashMap<>();
 
         when((mockBinding).hasErrors()).thenReturn(false);
         doReturn(new ArrayList()).when(goodDao).getAllGood();

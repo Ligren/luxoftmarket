@@ -6,8 +6,6 @@ import com.luxoftmarket.domain.Role;
 import com.luxoftmarket.domain.User;
 import com.luxoftmarket.domain.UserStatus;
 import com.luxoftmarket.validation.UserValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,8 +22,6 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private Logger log = LoggerFactory.getLogger(UserController.class); // 1. Объявляем переменную логгера
-
     @Autowired
     private IUserDao userDao;
     @Autowired
@@ -36,7 +32,6 @@ public class UserController {
     @RequestMapping(value = "addUser", method = RequestMethod.GET)
     @PreAuthorize("isAnonymous()")
     public String addUser() {
-        log.info("-----------------------Some object: {we are in the method add User, requestMethod GET}");
         return "addUser";
     }
 
