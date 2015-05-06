@@ -19,7 +19,6 @@ import static org.mockito.Mockito.*;
 public class RoleDaoImplTest {
 
     @Mock
-    @Autowired
     SessionFactory sessionFactory;
 
     @Mock
@@ -38,11 +37,6 @@ public class RoleDaoImplTest {
     @Test
     public void testFindRole() throws Exception {
 
-/*Session tempSession = sessionFactory.getCurrentSession();
-Role tempRole = tempSession.get(Role.class, roleId);
-return tempRole;
- */
-
         doReturn(mockSession).when(sessionFactory).getCurrentSession();
         doReturn(testRole).when(mockSession).get(Role.class, 5);
 
@@ -55,7 +49,6 @@ return tempRole;
 
     @Test
     public void testAddRole() throws Exception {
-//            sessionFactory.getCurrentSession().save(role);
 
         doReturn(mockSession).when(sessionFactory).getCurrentSession();
         doReturn(testRole).when(mockSession).save(any(Role.class));

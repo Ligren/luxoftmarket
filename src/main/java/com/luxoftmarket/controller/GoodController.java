@@ -137,7 +137,7 @@ public class GoodController {
 
     @RequestMapping(value = "buy", method = RequestMethod.POST)
 //    @PreAuthorize("isAuthenticated()")
-    public String byuGood(Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
+    public String buyGood(Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
 
         int amount = Integer.parseInt(req.getParameter("amount"));
         int goodId = Integer.parseInt(req.getParameter("good"));

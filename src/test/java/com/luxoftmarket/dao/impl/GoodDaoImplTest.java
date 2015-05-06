@@ -31,7 +31,6 @@ import static org.mockito.Mockito.*;
 public class GoodDaoImplTest {
 
     @Mock
-    @Autowired
     private SessionFactory sessionFactory;
 
     @Mock

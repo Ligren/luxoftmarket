@@ -25,7 +25,6 @@ import static org.mockito.Mockito.*;
 public class UserDaoImplTest {
 
     @Mock
-    @Autowired
     SessionFactory sessionFactory;
 
     @Mock

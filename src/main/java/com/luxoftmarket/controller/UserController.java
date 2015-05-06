@@ -2,7 +2,6 @@ package com.luxoftmarket.controller;
 
 import com.luxoftmarket.dao.IRoleDao;
 import com.luxoftmarket.dao.IUserDao;
-import com.luxoftmarket.dao.impl.UserDaoImpl;
 import com.luxoftmarket.domain.Role;
 import com.luxoftmarket.domain.User;
 import com.luxoftmarket.domain.UserStatus;
@@ -10,19 +9,15 @@ import com.luxoftmarket.validation.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
