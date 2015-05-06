@@ -1,9 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.springapp</groupId>
+    <groupId>com.luxoftmarket</groupId>
     <artifactId>luxoftmarket</artifactId>
     <packaging>war</packaging>
+    <!--<packaging>jar</packaging>-->
     <name>luxoftmarket</name>
     <version>1.0</version>
 
@@ -15,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
-  </properties>
+    </properties>
 
     <developers>
         <developer>
@@ -251,6 +252,12 @@
             <version>1.9.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+            <version>3.9.5</version>
+        </dependency>
+
         <!-- Apache -->
 
         <dependency>
@@ -261,9 +268,9 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>org.slf4j</groupId>-->
-            <!--<artifactId>slf4j-api</artifactId>-->
-            <!--<version>1.7.12</version>-->
+        <!--<groupId>org.slf4j</groupId>-->
+        <!--<artifactId>slf4j-api</artifactId>-->
+        <!--<version>1.7.12</version>-->
         <!--</dependency>-->
 
         <dependency>
@@ -276,7 +283,7 @@
     </dependencies>
 
     <build>
-        <finalName>luxoftmarket</finalName>
+        <!--<finalName>luxoftmarket</finalName>-->
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -295,39 +302,82 @@
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.1</version>
-
-
+                <version>2.2</version>
                 <configuration>
-                    <path>/${project.build.finalName}</path>
+                    <!--<path>/${project.build.finalName}</path>-->
+                    <path>/</path>
                 </configuration>
-            </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                <!--<version>2.2</version>-->
-            <!--<executions>-->
-                <!--<execution>-->
-                    <!--<id>tomcat-run</id>-->
-                    <!--<goals>-->
-                        <!--<goal>run</goal>-->
-                    <!--</goals>-->
-                    <!--<phase>pre-integration-test</phase>-->
-                    <!--<configuration>-->
+                <executions>
+                    <execution>
+                        <id>tomcat-run</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                        <!--<configuration>-->
                         <!--<path>/${project.build.finalName}</path>-->
                         <!--<fork>true</fork>-->
                         <!--<useTestClasspath>true</useTestClasspath>-->
-                    <!--</configuration>-->
-                <!--</execution>-->
-                <!--<execution>-->
-                    <!--<id>tomcat-shutdown</id>-->
-                    <!--<phase>post-integration-test</phase>-->
-                    <!--<goals>-->
-                        <!--<goal>shutdown</goal>-->
-                    <!--</goals>-->
-                <!--</execution>-->
-            <!--</executions>-->
-            <!--</plugin>-->
+                        <!--</configuration>-->
+                    </execution>
+                    <execution>
+                    <id>tomcat-shutdown</id>
+                    <phase>post-integration-test</phase>
+                    <goals>
+                    <goal>shutdown</goal>
+                    </goals>
+                    </execution>
+                </executions>
+            </plugin>
+                  <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <configuration>
+                      <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                      </descriptorRefs>
+                      <archive>
+                        <manifest>
+                          <mainClass>com.luxoftmarket.jBehave.MyStories</mainClass>
+                        </manifest>
+                      </archive>
+                    </configuration>
+                    <executions>
+                      <execution>
+                        <id>make-my-jar-with-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                          <goal>single</goal>
+                        </goals>
+                      </execution>
+                    </executions>
+                  </plugin>
+
+            <!--<plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+            <executions>
+                <execution>
+                    <id>tomcat-run</id>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <phase>pre-integration-test</phase>
+                    <configuration>
+                        <path>/${project.build.finalName}</path>
+                        <fork>true</fork>
+                        <useTestClasspath>true</useTestClasspath>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>tomcat-shutdown</id>
+                    <phase>post-integration-test</phase>
+                    <goals>
+                        <goal>shutdown</goal>
+                    </goals>
+                </execution>
+            </executions>
+            </plugin>-->
         </plugins>
     </build>
     <!--http://stackoverflow.com/questions/21628020/tomcat7shutdown-by-maven-->

@@ -23,6 +23,7 @@ http://habrahabr.ru/post/243155/ Unit test Mockito
 session http://stackoverflow.com/questions/4931323/whats-the-difference-between-getrequesturi-and-getpathinfo-methods-in-httpservl
 session http://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html
 session http://www.java2s.com/Code/JavaAPI/javax.servlet.http/HttpSessionsetAttributeStringkeyObjectvalue.htm
+unit test https://cloud.google.com/appengine/docs/java/tools/localunittesting
 */
 
 package com.luxoftmarket.controller;
