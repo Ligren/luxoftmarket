@@ -1,6 +1,6 @@
 # Store “Luxoftmarket”
 
-Spring MVC 4 + Hibernate 4 + H2 (in memoy) + Spring Sequrity 3
+Spring MVC 4 + Hibernate 4 + H2 (in memoy) + Spring Security 3
 
 Author: Vladyslav Kostiuchenko
 E-mail: sadkoua@gmail.com
