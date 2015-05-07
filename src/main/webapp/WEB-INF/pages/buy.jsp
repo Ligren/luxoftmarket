@@ -35,7 +35,9 @@
                 <c:forEach items="${goodList}" var="good">
 
                     <tr>
-                        <form name="select_amount_form" method="POST" action="buy" onsubmit="return validate_amount ('amount_required_${good.id}','amount_have_${good.id}' , 'submit');" >
+                        <%--<form name="select_amount_form" method="POST" action="buy" onsubmit="return validate_amount ('amount_required_${good.id}','amount_have_${good.id}' , 'submit');" >--%>
+                            <form name="select_amount_form" method="POST" action="buy">
+                                <%--onsubmit="return validate_amount ('amount_required_${good.id}','amount_have_${good.id}' , 'submit');" >    --%>
                             <input type="hidden" name="good" value="${good.id}">
                             <td>${good.name}</td>
                             <td>${good.price}</td>

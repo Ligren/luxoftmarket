@@ -3,24 +3,36 @@
 
 <t:template>
 
-    <h1>
-        Информация для проверяющих
-    </h1>
+    <h1>Store “Luxoftmarket”</h1>
+
+
+    <h2>Spring MVC 4 + Hibernate 4 + H2 (in memoy) + Spring Sequrity</h2>
+
+    <h3>Admin area login details:</h3>
+
+    <h4>login: “Vladyslav”</h4>
+    <h4>password: “bestDeveloper” :)</h4>
 
     <body>
 
-    Доступ под админом позволяет менять ассортимент, удалять товары в целом.
-    Доступ под пользователем позволяет выбирать товары из списка в корзину.
-    Создание нового пользователя не имеет полноценного функционала, т.к. база данных in-memory.
-    То-же самое касается и данного текста, он тоже должен быть зашит в базу данных, что-бы его легко можно-было менять.
-    Мы занимаемся тем что продаем прекрасные тапки для Всех, но наши тапки могут покупать только зарегистрированные
-    пользователи. Зарегистрируйтеь пожалуйста.
-    Мы занимаемся тем что продаем прекрасные тапки для Всех, но наши тапки могут покупать только зарегистрированные
-    пользователи. Зарегистрируйтеь пожалуйста.
-    Мы занимаемся тем что продаем прекрасные тапки для Всех, но наши тапки могут покупать только зарегистрированные
-    пользователи. Зарегистрируйтеь пожалуйста.
-    Мы занимаемся тем что продаем прекрасные тапки для Всех, но наши тапки могут покупать только зарегистрированные
-    пользователи. Зарегистрируйтеь пожалуйста.
+
+    Author: Vladyslav Kostiuchenko<br>
+    E-mail: sadkoua@gmail.com<br>
+    tel: +38 (O97) 95O-82-5б<br>
+    <br>
+    For implementation:<br>
+    <br>
+    Back-end:<br>
+    Java7 + Spring MVC 4 + Spring Security 3 + Hibernate 4 + H2 (in-memory data base)<br>
+    <br>
+    Front-end:<br>
+    HTML 5 + JavaScript + CSS <br>
+    <br>
+    Tests:<br>
+    Junit4 + Mockito + jBehave<br>
+    <br>
+    Validation:<br>
+    Spring Validation + Hibernate Validation
 
     </body>
 
@@ -34,9 +46,9 @@
         <a href="buy">Приступить к покупкам (админу тоже можно)</a><br>
     </sec:authorize>
 
-    <%--<sec:authorize access="hasRole('administrator')">--%>
+    <sec:authorize access="hasRole('administrator')">
         <a href="admin">В кабинет админа</a><br>
-    <%--</sec:authorize>--%>
+    </sec:authorize>
 
 
 </t:template>

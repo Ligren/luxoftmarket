@@ -24,6 +24,7 @@ session http://stackoverflow.com/questions/4931323/whats-the-difference-between-
 session http://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html
 session http://www.java2s.com/Code/JavaAPI/javax.servlet.http/HttpSessionsetAttributeStringkeyObjectvalue.htm
 unit test https://cloud.google.com/appengine/docs/java/tools/localunittesting
+jbehave http://fazlansabar.blogspot.com/2013/06/jbehave-tutorial-bdd-framework-for.html
 */
 
 package com.luxoftmarket.controller;
@@ -33,6 +34,7 @@ import com.luxoftmarket.dao.IUserDao;
 import com.luxoftmarket.domain.Good;
 import com.luxoftmarket.validation.GoodValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -64,7 +66,7 @@ public class GoodController {
 
 
     @RequestMapping(value = {"/admin", "/good.do"}, method = RequestMethod.GET)
-//    @PreAuthorize("hasRole('administrator')")
+    @PreAuthorize("hasRole('administrator')")
     public String setupForm(Map<String, Object> map, @ModelAttribute Good good) {
         map.put("goodList", goodDao.getAllGood());
         map.put("userList", userDao.getAllUsers());
@@ -106,7 +108,7 @@ public class GoodController {
     }
 
     @RequestMapping(value = "/buy", method = RequestMethod.GET)
-//    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     public String byuStart(Map<String, Object> map) {
         map.put("goodList", goodDao.getAllGood());
         return "buy";
@@ -114,7 +116,7 @@ public class GoodController {
 
 
     @RequestMapping(value = "buy", method = RequestMethod.POST)
-//    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     public String buyGood(Map<String, Object> map, HttpServletRequest req) { //BindingResult bindingResul @RequestParam String amount @RequestParam String action , @RequestParam String amount
 
         int amount = Integer.parseInt(req.getParameter("amount"));
