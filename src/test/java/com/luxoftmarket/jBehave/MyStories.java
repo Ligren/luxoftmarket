@@ -19,7 +19,6 @@ import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.core.steps.ParameterConverters;
 import org.jbehave.core.steps.ParameterConverters.DateConverter;
 import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
-//import org.jbehave.examples.executable_jar.steps.MySteps;
 
 import static org.jbehave.core.reporters.Format.CONSOLE;
 import static org.jbehave.core.reporters.Format.HTML;
@@ -74,11 +73,7 @@ public class MyStories extends JUnitStories{
 
     @Override
     protected List<String> storyPaths() {
-        return Arrays.asList(//"org/jbehave/examples/executable_jar/stories/jar.story",
-                //"org/jbehave/examples/executable_jar/stories/jar2.story",
-                "com.luxoftmarket/stories/jar.story",
-               "com.luxoftmarket/stories/jar2.story"
-        );
+        return Arrays.asList("com.luxoftmarket/stories/jar.story");
     }
 
     public static void main(String[] args) throws Throwable {

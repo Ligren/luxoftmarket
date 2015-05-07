@@ -1,11 +1,13 @@
-!--Meta:
+-Meta:
 
-!--Narrative:
-!--As a user
-!--I want to perform an action
-!--So that I can achieve a business goal
+Narrative:
 
-Scenario: This should work as executable jar
-!--Given a system state
-When I run this as executable jar
-Then this story should run
+Verify returned value from method addUser (UserController.class)
+ Returned value mast be addUser
+
+
+Scenario: This should work in metod addUser
+
+Given Add new user Request method get
+When Call method addUser
+Then Returne value addUser

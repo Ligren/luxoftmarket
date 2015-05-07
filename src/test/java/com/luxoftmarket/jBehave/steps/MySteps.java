@@ -1,22 +1,33 @@
 package com.luxoftmarket.jBehave.steps;
 
+import com.luxoftmarket.controller.UserController;
 import org.jbehave.core.annotations.Alias;
+import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
+import static org.junit.Assert.assertEquals;
+
 public class MySteps {
 
-        @When("I run this as executable jar") //When I run this as executable jar -- jar
-        @Alias("this") //When this -- jar2
-        public void whenIRunThisAsExecutableJar() {
-                System.out.println("we are in the whenIRunThisAsExecutableJar");
-            // we don't do anything
+        UserController userController;
+
+        String returnedValue;
+
+        @Given("Add new user Request method get")
+        public void given() {
+                this.userController = new UserController();
         }
 
-        @Then("this story should run") // Then this story should run
-        @Alias("that") // Then that -- jar2
+
+
+        @When("Call method addUser")
+        public void whenIRunThisAsExecutableJar() {
+                this.returnedValue = userController.addUser();
+        }
+
+        @Then("Returne value addUser")
         public void thenThisStoryShouldRun() {
-                System.out.println("we are in the thenThisStoryShouldRun");
-            // we don't do anything
+             assertEquals("addUser", returnedValue);
         }
 }
