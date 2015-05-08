@@ -15,7 +15,6 @@
 
     <body>
 
-
     Author: Vladyslav Kostiuchenko<br>
     E-mail: sadkoua@gmail.com<br>
     tel: +38 (O97) 95O-82-5б<br>
